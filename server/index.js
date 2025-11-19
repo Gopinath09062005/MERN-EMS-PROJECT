@@ -14,7 +14,10 @@ import connectToDatabase from "./config/db.js";
 connectToDatabase();
 const app = express();
 app.use(
-  cors()
+  cors({
+    origin: "https://mern-ems-project-frontend.vercel.app",
+    credentials: true,
+  })
 );
 app.use(express.json());
 app.use(express.static("public/uploads")); /////
