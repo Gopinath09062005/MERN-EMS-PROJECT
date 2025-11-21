@@ -27,7 +27,7 @@ const Homepage = () => {
           {/* Image 1 */}
           <div className="text-center">
             <img
-              src="src/components/images/Gemini_Generated_Image_vrvzr9vrvzr9vrvz.png"
+              src="src/components/images/Screenshot (70).png"
               alt="Admin and Employee Roles"
               className="w-full object-contain rounded-lg shadow mb-4"
             />
