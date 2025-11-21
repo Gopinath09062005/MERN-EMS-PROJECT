@@ -22,7 +22,7 @@ const handleSubmit = async (e) => {
 
   try {
         const response = await axios.post(
-          `http://localhost:5000/api/leave/add`,leave,
+          `https://mern-ems-project-server.vercel.app/api/leave/add`,leave,
           {
             headers: {
               "Authorization": `Bearer ${localStorage.getItem("token")}`,
