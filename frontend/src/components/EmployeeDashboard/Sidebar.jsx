@@ -2,23 +2,39 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { FaBuilding, FaCalendarAlt, FaCogs, FaTachometerAlt, FaUsers, FaTimes } from "react-icons/fa";
 import { useAuth } from "../../context/authContext";
+import logoImg from "../../assets/original logo.jpg"; // லோகோ இம்போர்ட்
 
 const Sidebar = ({ isOpen, closeSidebar }) => {
     const {user} = useAuth()
 
   return (
     <div
-      // 👇 FIX: z-50 சேர்க்கப்பட்டுள்ளது 👇
       className={`bg-gray-800 text-white h-screen fixed left-0 top-0 bottom-0 space-y-2 w-64 z-50 transition-transform duration-300 transform
       ${isOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}
     >
-      {/* Header with Close Button */}
-      <div className="bg-teal-600 h-16 flex items-center justify-between px-4">
-        <h3 className="text-2xl text-center font-pacific flex-1">EMS</h3>
-        <button className="md:hidden text-white text-xl" onClick={closeSidebar}>
+      
+      {/* 👇 மாற்றம் இங்கே: லோகோ சேர்க்கப்பட்டுள்ளது 👇 */}
+      <div className="bg-teal-600 h-16 flex items-center justify-between px-4 shadow-md">
+        
+        {/* Logo & Text */}
+        <div className="flex items-center gap-3">
+            {/* Round Logo */}
+            <img 
+                src={logoImg} 
+                alt="EMS Logo" 
+                className="w-10 h-10 rounded-full object-cover border-2 border-white"
+            />
+            <h3 className="text-xl font-pacific font-bold tracking-wide">
+                EMS
+            </h3>
+        </div>
+
+        {/* Close Button */}
+        <button className="md:hidden text-white text-xl hover:text-gray-200" onClick={closeSidebar}>
             <FaTimes />
         </button>
       </div>
+      {/* 👆 மாற்றம் முடிந்தது 👆 */}
 
       <div className="px-3 space-y-2 mt-4">
         <NavLink

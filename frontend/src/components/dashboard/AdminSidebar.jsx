@@ -1,22 +1,47 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { FaBuilding, FaCalendarAlt, FaCogs, FaMoneyBillWave, FaRegCalendarAlt, FaTachometerAlt, FaUsers, FaTimes } from "react-icons/fa";
+import { 
+  FaBuilding, 
+  FaCalendarAlt, 
+  FaCogs, 
+  FaMoneyBillWave, 
+  FaRegCalendarAlt, 
+  FaTachometerAlt, 
+  FaUsers, 
+  FaTimes 
+} from "react-icons/fa";
 import { AiOutlineFileText } from "react-icons/ai";
+import logoImg from "../../assets/original logo.jpg"; // லோகோ இம்போர்ட்
 
 const AdminSidebar = ({ isOpen, closeSidebar }) => {
   return (
     <div
-      // 👇 FIX: z-50 கொடுக்கப்பட்டுள்ளது (எல்லாவற்றிற்கும் மேலே இருக்கும்) 👇
       className={`bg-gray-800 text-white h-screen fixed left-0 top-0 bottom-0 space-y-2 w-64 z-50 transition-transform duration-300 transform 
       ${isOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}
     >
-      <div className="bg-teal-600 h-16 flex items-center justify-between px-4">
-        <h3 className="text-2xl font-pacific text-center flex-1">EMS Admin</h3>
+      
+      {/* 👇 மாற்றம் இங்கே: பழைய Teal கலர் திரும்ப வந்துவிட்டது 👇 */}
+      <div className="bg-teal-600 h-16 flex items-center justify-between px-4 shadow-md">
+        
+        {/* Logo & Text */}
+        <div className="flex items-center gap-3">
+            {/* Round Logo */}
+            <img 
+                src={logoImg} 
+                alt="EMS Logo" 
+                className="w-10 h-10 rounded-full object-cover border-2 border-white"
+            />
+            <h3 className="text-xl font-pacific font-bold tracking-wide">
+                EMS Admin
+            </h3>
+        </div>
+
         {/* Close Button */}
-        <button className="md:hidden text-white text-xl" onClick={closeSidebar}>
+        <button className="md:hidden text-white text-xl hover:text-gray-200" onClick={closeSidebar}>
             <FaTimes />
         </button>
       </div>
+      {/* 👆 மாற்றம் முடிந்தது 👆 */}
 
       <div className="px-3 space-y-2 mt-4">
         <NavLink to="/admin-dashboard" className={({ isActive }) => `${isActive ? "bg-teal-500" : ""} flex items-center space-x-4 py-2.5 px-4 rounded transition-colors hover:bg-teal-600`} end onClick={closeSidebar}>

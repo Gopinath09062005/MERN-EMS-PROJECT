@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { API_URL, SERVER_URL } from "../../utils/config";
+import { API_URL } from "../../utils/config";
 
 const Detail = () => {
   const { id } = useParams();
@@ -57,58 +57,65 @@ const Detail = () => {
             Leave Details
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            
+            {/* Image Section */}
             <div className="flex justify-center md:justify-start">
               <img
-                src={`${SERVER_URL}/uploads/${leave.employeeId.userId.profileImage}`}
+                src={leave.employeeId.userId.profileImage}
                 alt="Profile"
                 className="rounded-full border w-72 h-72 object-cover"
+                onError={(e) => {e.target.src = "https://via.placeholder.com/150"}}
               />
             </div>
+
+            {/* Text Details Section */}
             <div>
+              {/* 👇 FIX: justify-center md:justify-start எல்லா இடத்திலும் சேர்க்கப்பட்டுள்ளது 👇 */}
+              
               {/* Name */}
-              <div className="flex space-x-3 mb-5">
+              <div className="flex space-x-3 mb-5 justify-center md:justify-start">
                 <p className="text-lg font-bold">Name:</p>
                 <p className="font-medium text-lg">{leave.employeeId.userId.name}</p>
               </div>
 
               {/* Employee ID */}
-              <div className="flex space-x-3 mb-5">
+              <div className="flex space-x-3 mb-5 justify-center md:justify-start">
                 <p className="text-lg font-bold">Employee ID:</p>
                 <p className="font-medium text-lg">{leave.employeeId.employeeId}</p>
               </div>
 
               {/* Department */}
-              <div className="flex space-x-3 mb-5">
+              <div className="flex space-x-3 mb-5 justify-center md:justify-start">
                 <p className="text-lg font-bold">Department:</p>
                 <p className="font-medium text-lg">{leave.employeeId.department.dep_name}</p>
               </div>
 
               {/* Leave Type */}
-              <div className="flex space-x-3 mb-5">
+              <div className="flex space-x-3 mb-5 justify-center md:justify-start">
                 <p className="text-lg font-bold">Leave Type:</p>
                 <p className="font-medium text-lg">{leave.leaveType}</p>
               </div>
 
               {/* Reason */}
-              <div className="flex space-x-3 mb-5">
+              <div className="flex space-x-3 mb-5 justify-center md:justify-start">
                 <p className="text-lg font-bold">Reason:</p>
                 <p className="font-medium text-lg">{leave.reason}</p>
               </div>
 
               {/* Start Date */}
-              <div className="flex space-x-3 mb-5">
+              <div className="flex space-x-3 mb-5 justify-center md:justify-start">
                 <p className="text-lg font-bold">Start Date:</p>
                 <p className="font-medium text-lg">{new Date(leave.startDate).toLocaleDateString()}</p>
               </div>
 
               {/* End Date */}
-              <div className="flex space-x-3 mb-5">
+              <div className="flex space-x-3 mb-5 justify-center md:justify-start">
                 <p className="text-lg font-bold">End Date:</p>
                 <p className="font-medium text-lg">{new Date(leave.endDate).toLocaleDateString()}</p>
               </div>
 
               {/* Status & Actions */}
-              <div className="flex space-x-3 mb-5">
+              <div className="flex space-x-3 mb-5 justify-center md:justify-start">
                 <p className="text-lg font-bold">
                   {leave.status === "Pending" ? "Action:" : "Status:"}
                 </p>
