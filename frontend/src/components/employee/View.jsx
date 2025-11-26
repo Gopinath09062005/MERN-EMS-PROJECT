@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { API_URL, SERVER_URL } from "../../utils/config";
+import { API_URL } from "../../utils/config"; // SERVER_URL தேவையில்லை
 import { FaUser, FaIdBadge, FaCalendarAlt, FaVenusMars, FaBuilding, FaRing, FaMoneyBillWave } from "react-icons/fa";
 
 const View = () => {
@@ -38,20 +38,23 @@ const View = () => {
         <div className="min-h-screen flex justify-center items-center bg-gray-100 p-4">
           <div className="max-w-3xl w-full bg-white rounded-2xl shadow-2xl overflow-hidden">
             
-            {/* 1. Top Banner (Gradient Background) */}
+            {/* Top Banner */}
             <div className="h-40 bg-gradient-to-r from-teal-500 to-emerald-600"></div>
 
             <div className="px-6 pb-8">
-                {/* 2. Profile Image (Overlapping) */}
+                {/* Profile Image (FIXED) */}
                 <div className="relative flex justify-center -mt-20 mb-6">
                     <img
-                        src={`${SERVER_URL}/uploads/${employee.userId.profileImage}`}
+                        // 👇 மாற்றம் இங்கே: SERVER_URL-ஐ நீக்கியுள்ளேன் 👇
+                        src={employee.userId.profileImage}
                         alt={employee.userId.name}
                         className="w-40 h-40 rounded-full border-4 border-white object-cover shadow-lg"
+                        // படம் இல்லையென்றால் Placeholder காட்டும்
+                        onError={(e) => {e.target.src = "https://via.placeholder.com/150"}}
                     />
                 </div>
 
-                {/* 3. Name & Header */}
+                {/* Name & Header */}
                 <div className="text-center mb-8">
                     <h2 className="text-3xl font-bold text-gray-800">{employee.userId.name}</h2>
                     <p className="text-gray-500 font-medium mt-1">{employee.designation}</p>
@@ -60,7 +63,7 @@ const View = () => {
                     </p>
                 </div>
 
-                {/* 4. Details Grid with Icons */}
+                {/* Details Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-gray-700">
                     
                     {/* Left Column */}
