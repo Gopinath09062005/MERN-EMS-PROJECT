@@ -16,13 +16,15 @@ const userRegister = async () => {
         role: "admin"
       })
       await newUser.save()
-      console.log("Admin user created")
+      console.log("✅ Admin user created successfully");
     } else {
-      console.log("Admin user already exists")
+      console.log("⚠️ Admin user already exists");
     }
   } catch (error) {
-    console.log(error)
+    console.log("❌ Error seeding admin:", error);
   } finally {
+    // Close connection properly
+    // mongoose.connection.close(); 
     process.exit(0)
   }
 }

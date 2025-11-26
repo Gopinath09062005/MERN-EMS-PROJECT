@@ -1,4 +1,3 @@
-// import 'dotenv/config'
 import express from "express";
 import cors from "cors";
 import authRouter from "./routes/auth.js";
@@ -10,17 +9,25 @@ import settingRouter from "./routes/setting.js";
 import attendanceRouter from "./routes/attendance.js";
 import dashboardRouter from "./routes/dashboard.js";
 import connectToDatabase from "./config/db.js";
+import 'dotenv/config'; // Important for .env
 
 connectToDatabase();
 const app = express();
-app.use(
-  cors({
-    origin: "https://mern-ems-project-frontend.vercel.app",
+
+// CORS Configuration
+app.use(cors({
+    origin: ["http://localhost:5173", "https://mern-ems-project-frontend.vercel.app"],
     credentials: true,
-  })
-);
+    methods: ["GET", "POST", "PUT", "DELETE"],
+}));
+
 app.use(express.json());
-app.use(express.static("public/uploads")); /////
+
+// Serving Static Files correctly
+// Frontend will access images via: http://localhost:5000/uploads/image.png
+app.use('/uploads', express.static('public/uploads')); 
+
+// Routes
 app.use("/api/auth", authRouter);
 app.use("/api/department", departmentRouter);
 app.use("/api/employee", employeeRouter);
@@ -30,6 +37,7 @@ app.use("/api/setting", settingRouter);
 app.use("/api/attendance", attendanceRouter);
 app.use("/api/dashboard", dashboardRouter);
 
-app.listen(process.env.PORT, () => {
-  console.log(`Server is running on port ${process.env.PORT}`);
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });

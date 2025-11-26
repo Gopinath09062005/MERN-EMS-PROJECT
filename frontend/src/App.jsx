@@ -31,6 +31,8 @@ function App() {
         <Route path="/" element={<Navigate to="/home-page" />}></Route>
         <Route path="/home-page" element={<Homepage />}></Route>
         <Route path="/login" element={<Login />}></Route>
+
+        {/* Admin Routes */}
         <Route
           path="/admin-dashboard"
           element={
@@ -43,53 +45,27 @@ function App() {
         >
           <Route index element={<AdminSummary />}></Route>
 
-          <Route
-            path="/admin-dashboard/departments"
-            element={<DepartmentList />}
-          ></Route>
-          <Route
-            path="/admin-dashboard/add-department"
-            element={<AddDepartment />}
-          ></Route>
-          <Route
-            path="/admin-dashboard/department/:id"
-            element={<EditDepartment />}
-          ></Route>
+          <Route path="/admin-dashboard/departments" element={<DepartmentList />}></Route>
+          <Route path="/admin-dashboard/add-department" element={<AddDepartment />}></Route>
+          <Route path="/admin-dashboard/department/:id" element={<EditDepartment />}></Route>
 
           <Route path="/admin-dashboard/employees" element={<List />}></Route>
           <Route path="/admin-dashboard/add-employee" element={<Add />}></Route>
-          <Route
-            path="/admin-dashboard/employees/:id"
-            element={<View />}
-          ></Route>
-          <Route
-            path="/admin-dashboard/employees/edit/:id"
-            element={<Edit />}
-          ></Route>
-          <Route
-            path="/admin-dashboard/employees/salary/:id"
-            element={<ViewSalary />}
-          ></Route>
+          <Route path="/admin-dashboard/employees/:id" element={<View />}></Route>
+          <Route path="/admin-dashboard/employees/edit/:id" element={<Edit />}></Route>
+          <Route path="/admin-dashboard/employees/salary/:id" element={<ViewSalary />}></Route>
 
-          <Route
-            path="/admin-dashboard/salary/add"
-            element={<AddSalary />}
-          ></Route>
+          <Route path="/admin-dashboard/salary/add" element={<AddSalary />}></Route>
           <Route path="/admin-dashboard/leaves" element={<Table />}></Route>
-          <Route
-            path="/admin-dashboard/leaves/:id"
-            element={<Detail />}
-          ></Route>
-          <Route
-            path="/admin-dashboard/employees/leaves/:id"
-            element={<LeaveList />}
-          ></Route>
+          <Route path="/admin-dashboard/leaves/:id" element={<Detail />}></Route>
+          <Route path="/admin-dashboard/employees/leaves/:id" element={<LeaveList />}></Route>
 
           <Route path="/admin-dashboard/setting" element={<Setting />}></Route>
           <Route path="/admin-dashboard/attendance" element={<Attendance />}></Route>
           <Route path="/admin-dashboard/attendance-report" element={<AttendanceReport />}></Route>
         </Route>
 
+        {/* Employee Routes */}
         <Route
           path="/employee-dashboard"
           element={
@@ -101,27 +77,11 @@ function App() {
           }
         >
           <Route index element={<Summary />}></Route>
-
-          <Route
-            path="/employee-dashboard/profile/:id"
-            element={<View />}
-          ></Route>
-          <Route
-            path="/employee-dashboard/leaves/:id"
-            element={<LeaveList />}
-          ></Route>
-          <Route
-            path="/employee-dashboard/add-leave"
-            element={<AddLeave />}
-          ></Route>
-          <Route
-            path="/employee-dashboard/salary/:id"
-            element={<ViewSalary />}
-          ></Route>
-          <Route
-            path="/employee-dashboard/setting"
-            element={<Setting />}
-          ></Route>
+          <Route path="/employee-dashboard/profile/:id" element={<View />}></Route>
+          <Route path="/employee-dashboard/leaves/:id" element={<LeaveList />}></Route>
+          <Route path="/employee-dashboard/add-leave" element={<AddLeave />}></Route>
+          <Route path="/employee-dashboard/salary/:id" element={<ViewSalary />}></Route>
+          <Route path="/employee-dashboard/setting" element={<Setting />}></Route>
         </Route>
       </Routes>
     </BrowserRouter>

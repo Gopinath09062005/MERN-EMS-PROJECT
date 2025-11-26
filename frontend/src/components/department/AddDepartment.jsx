@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
+import { API_URL } from '../../utils/config'; // Import Config
 
 const AddDepartment = () => {
     const [department, setDepartment] = useState({
@@ -18,7 +18,8 @@ const AddDepartment = () => {
     const handleSubmit = async (e) =>{
         e.preventDefault()
         try{
-            const response = await axios.post('https://mern-ems-project-server.vercel.app/api/department/add', department, {
+            // Change: API_URL
+            const response = await axios.post(`${API_URL}/department/add`, department, {
                 headers: {
                     "Authorization" : `Bearer ${localStorage.getItem('token')}`
                 }

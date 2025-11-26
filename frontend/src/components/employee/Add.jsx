@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import { fetchDepartments } from "../../utils/EmployeeHelper";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "../../utils/config"; // Import Config
 
 const Add = () => {
   const [departments, setDepartments] = useState([]);
   const [formData, setFormData] = useState({});
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getDepartments = async () => {
@@ -28,14 +29,14 @@ const Add = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const formDataObj = new FormData()
+    const formDataObj = new FormData();
     Object.keys(formData).forEach((key) => {
-        formDataObj.append(key, formData[key])
-    })
+      formDataObj.append(key, formData[key]);
+    });
 
     try {
       const response = await axios.post(
-        "https://mern-ems-project-server.vercel.app/api/employee/add",
+        `${API_URL}/employee/add`,
         formDataObj,
         {
           headers: {
@@ -79,7 +80,7 @@ const Add = () => {
               Email
             </label>
             <input
-              type="text"
+              type="email"
               name="email"
               onChange={handleChange}
               placeholder="Insert Email"
@@ -88,7 +89,7 @@ const Add = () => {
             />
           </div>
 
-          {/* Employee ID? */}
+          {/* Employee ID */}
           <div>
             <label className="block text-sm font-medium text-gray-700">
               Employee ID
@@ -98,8 +99,8 @@ const Add = () => {
               name="employeeId"
               onChange={handleChange}
               placeholder="Employee ID"
-              required
               className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
+              required
             />
           </div>
 
@@ -144,7 +145,6 @@ const Add = () => {
             <select
               name="maritalStatus"
               onChange={handleChange}
-              placeholder="Marital Status"
               className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
               required
             >

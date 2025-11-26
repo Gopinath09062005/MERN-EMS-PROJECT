@@ -1,8 +1,8 @@
-
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/authContext'
 import axios from 'axios'
+import { API_URL } from "../../utils/config";
 
 const Setting = () => {
     const navigate = useNavigate()
@@ -22,12 +22,19 @@ const Setting = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+        
+        // 1. Check if New and Confirm passwords match
         if (setting.newPassword !== setting.confirmPassword) {
-            setError("Password not matched")
-        } else {
+            setError("New password and confirm password do not match")
+        } 
+        // 2. Check if Old and New passwords are the same (NEW FIX)
+        else if (setting.oldPassword === setting.newPassword) {
+            setError("New password cannot be the same as old password")
+        } 
+        else {
             try {
                 const response = await axios.put(
-                    "https://mern-ems-project-server.vercel.app/api/setting/change-password",
+                    `${API_URL}/setting/change-password`,
                     setting,
                     {
                         headers: {
@@ -36,76 +43,46 @@ const Setting = () => {
                     }
                 );
                 if(response.data.success) {
-                    navigate("/admin-dashboard/employees")
+                    // Check Role before navigation
+                    if (user.role === "admin") {
+                        navigate("/admin-dashboard");
+                    } else {
+                        navigate("/employee-dashboard");
+                    }
                     setError("")
+                    alert("Password Changed Successfully!")
                 }
             } catch (error) {
-                if(error.response && !error.response) {
-
+                if(error.response && !error.response.data.success) {
+                    setError(error.response.data.error)
                 }
             }
-
-
         }
     }
 
   return (
     <div className='max-w-3xl mx-auto mt-10 bg-white p-8 rounded-md shadow-md w-96'>
         <h2 className='text-2xl font-bold mb-6'>Change Password</h2>
-        <p className='text-red-500'>{error}</p>
+        
+        {/* Error Message Display */}
+        {error && <p className='text-red-500 mb-4 bg-red-50 p-2 rounded border border-red-200 text-sm'>{error}</p>}
+        
         <form onSubmit={handleSubmit}>
-            {/* Department */}
             <div>
-                <label className='text-sm font-medium text-gray-700'>
-                    Old Password
-                </label>
-                <input 
-                type="password" 
-                name="oldPassword"
-                placeholder='Change Password'
-                onChange={handleChange}
-                className='mt-1 w-full p-2 border-gray-300 rounded-md'
-                required
-                />
+                <label className='text-sm font-medium text-gray-700'>Old Password</label>
+                <input type="password" name="oldPassword" placeholder='Old Password' onChange={handleChange} className='mt-1 w-full p-2 border border-gray-300 rounded-md' required />
             </div>
-
-            <div>
-                <label className='text-sm font-medium text-gray-700'>
-                    New Password
-                </label>
-                <input 
-                type="password" 
-                name="newPassword"
-                placeholder='New Password'
-                onChange={handleChange}
-                className='mt-1 w-full p-2 border-gray-300 rounded-md'
-                required
-                />
+            <div className='mt-4'>
+                <label className='text-sm font-medium text-gray-700'>New Password</label>
+                <input type="password" name="newPassword" placeholder='New Password' onChange={handleChange} className='mt-1 w-full p-2 border border-gray-300 rounded-md' required />
             </div>
-
-            <div>
-                <label className='text-sm font-medium text-gray-700'>
-                    Confirm Password
-                </label>
-                <input 
-                type="password" 
-                name="confirmPassword"
-                placeholder='Confirm Password'
-                onChange={handleChange}
-                className='mt-1 w-full p-2 border-gray-300 rounded-md'
-                required
-                />
+            <div className='mt-4'>
+                <label className='text-sm font-medium text-gray-700'>Confirm Password</label>
+                <input type="password" name="confirmPassword" placeholder='Confirm Password' onChange={handleChange} className='mt-1 w-full p-2 border border-gray-300 rounded-md' required />
             </div>
-
-            <button
-            type='submit'
-            className='w-full mt-6 bg-teal-600 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded'
-            >
-                Change Password
-            </button>
+            <button type='submit' className='w-full mt-6 bg-teal-600 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded'>Change Password</button>
         </form>
     </div>
   )
 }
-
 export default Setting

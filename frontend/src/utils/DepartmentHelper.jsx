@@ -1,19 +1,22 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "./config";
 
 export const columns = [
-  {
-    name: "S NO",
+  { 
+    name: "S NO", 
     selector: (row) => row.sno,
+    width: "100px" // Fixed width for better look
   },
-  {
-    name: "Department Name",
-    selector: (row) => row.dep_name,
-    sortable: true,
+  { 
+    name: "Department Name", 
+    selector: (row) => row.dep_name, 
+    sortable: true 
   },
-  {
-    name: "Action",
+  { 
+    name: "Action", 
     selector: (row) => row.action,
+    center: true // Center align buttons
   },
 ];
 
@@ -25,11 +28,9 @@ export const DepartmentButtons = ({ Id, onDepartmentDelete }) => {
     if (confirm) {
       try {
         const response = await axios.delete(
-          `https://mern-ems-project-server.vercel.app/api/department/${id}`,
+          `${API_URL}/department/${id}`,
           {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
+            headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
           }
         );
         if (response.data.success) {
@@ -44,15 +45,15 @@ export const DepartmentButtons = ({ Id, onDepartmentDelete }) => {
   };
 
   return (
-    <div className="flex space-x-3">
+    <div className="flex space-x-3 justify-center">
       <button
-        className="px-3 py-1 bg-teal-600"
+        className="px-4 py-1.5 bg-teal-500 hover:bg-teal-600 text-white rounded-md transition duration-200 shadow-sm font-medium"
         onClick={() => navigate(`/admin-dashboard/department/${Id}`)}
       >
         Edit
       </button>
       <button
-        className="px-3 py-1 bg-red-600 text-white"
+        className="px-4 py-1.5 bg-red-500 hover:bg-red-600 text-white rounded-md transition duration-200 shadow-sm font-medium"
         onClick={() => handleDelete(Id)}
       >
         Delete

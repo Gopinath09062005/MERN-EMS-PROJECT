@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { fetchDepartments } from "../../utils/EmployeeHelper";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import { API_URL } from "../../utils/config"; // Import Config
 
 const Edit = () => {
   const [employee, setEmployee] = useState({
@@ -27,7 +28,7 @@ const Edit = () => {
     const fetchEmployee = async () => {
       try {
         const response = await axios.get(
-          `https://mern-ems-project-server.vercel.app/api/employee/${id}`,
+          `${API_URL}/employee/${id}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -42,7 +43,7 @@ const Edit = () => {
             maritalStatus: employee.maritalStatus,
             designation: employee.designation,
             salary: employee.salary,
-            department: employee.department
+            department: employee.department,
           }));
         }
       } catch (error) {
@@ -51,9 +52,8 @@ const Edit = () => {
         }
       }
     };
-
     fetchEmployee();
-  }, []);
+  }, [id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -65,7 +65,7 @@ const Edit = () => {
 
     try {
       const response = await axios.put(
-        `https://mern-ems-project-server.vercel.app/api/employee/${id}`,
+        `${API_URL}/employee/${id}`,
         employee,
         {
           headers: {
@@ -115,7 +115,6 @@ const Edit = () => {
                   name="maritalStatus"
                   onChange={handleChange}
                   value={employee.maritalStatus}
-                  placeholder="Marital Status"
                   className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
                   required
                 >
@@ -195,4 +194,3 @@ const Edit = () => {
 };
 
 export default Edit;
-

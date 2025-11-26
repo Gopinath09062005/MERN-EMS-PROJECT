@@ -1,42 +1,31 @@
 import axios from 'axios'
 import React, { createContext, useContext, useEffect, useState } from 'react'
+import { API_URL } from '../utils/config'
 
 const userContext = createContext()
 
 const AuthContext = ({children}) => {
-    
     const [user, setUser] = useState(null)
     const [loading, setLoading] = useState(true)
-    // const navigate = useNavigate()
 
     useEffect(()=>{
          const verifyUser = async ()=>{
             try{
                 const token = localStorage.getItem('token')
                 if(token){
-
-                const response = await axios.get('https://mern-ems-project-server.vercel.app/api/auth/verify',
-                //  const response = await axios.get(`${import.meta.env.VITE_API_URL}/auth/verify`,   ///
-                    {
-                  headers: {
-                    Authorization: `Bearer ${token}`
-                  }  
+                const response = await axios.get(`${API_URL}/auth/verify`, {
+                    headers: {
+                      Authorization: `Bearer ${token}`
+                    }  
                 })
-                console.log(response);
-                
                 if(response.data.success){
                     setUser(response.data.user)
                 }
-            }else{
-                // navigate('/login')
+            } else {
                 setUser(null)
-                setLoading(false)
             }
-            }catch(error){
-                console.log(error);
-                
+            } catch(error){
                 if(error.response && !error.response.data.error){
-                    // navigate('/login')
                     setUser(null)
                 }
             } finally{
@@ -46,7 +35,6 @@ const AuthContext = ({children}) => {
          verifyUser()
     },[])
 
-
     const login = (user) => {
         setUser(user)
     }
@@ -54,18 +42,14 @@ const AuthContext = ({children}) => {
     const logout = () => {
         setUser(null)
         localStorage.removeItem("token")
-        // navigate('/login')                  /////
     }
 
     return (
-        <div>
-            <userContext.Provider value={{ user, login, logout, loading }}>
-                {children}
-            </userContext.Provider>
-        </div>
+        <userContext.Provider value={{ user, login, logout, loading }}>
+            {children}
+        </userContext.Provider>
     )
 }
 
 export const useAuth = ()=> useContext(userContext)
 export default AuthContext
-
