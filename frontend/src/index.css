@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* ஏற்கனவே இருக்கும் code-க்கு கீழே இதைப் போடவும் */
+
+/* 👇 FORCE SCROLL FIX 👇 */
+.scroll-container {
+  width: 100% !important;
+  overflow-x: auto !important; /* கிடைமட்ட ஸ்க்ரோலை கட்டாயப்படுத்துகிறது */
+  -webkit-overflow-scrolling: touch; /* மொபைலில் ஸ்மூத் ஸ்க்ரோல் */
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+}
+
+.scroll-inner {
+  min-width: 1000px !important; /* டேபிளை 1000px-க்கு குறையாமல் இருக்க வைக்கிறது */
+  display: block !important;
+}

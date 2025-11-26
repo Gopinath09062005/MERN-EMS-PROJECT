@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { columns, EmployeeButtons } from '../../utils/EmployeeHelper';
 import DataTable from "react-data-table-component";
 import axios from 'axios';
-import { API_URL } from '../../utils/config'; // Cloudinary பயன்படுத்துவதால் SERVER_URL தேவையில்லை
+import { API_URL } from '../../utils/config';
 import { FaPlus } from 'react-icons/fa';
 
 const List = () => {
@@ -27,12 +27,9 @@ const List = () => {
             dep_name: emp.department.dep_name,
             name: emp.userId.name,
             dob: new Date(emp.dob).toLocaleDateString(),
-            // Image Direct URL from Cloudinary
             profileImage: (
                 <img 
-                    width={40} 
-                    height={40}
-                    className='rounded-full object-cover' 
+                    style={{width: '40px', height: '40px', borderRadius: '50%', objectFit: 'cover'}}
                     src={emp.userId.profileImage} 
                     alt={emp.userId.name} 
                 />
@@ -66,31 +63,27 @@ const List = () => {
         <h3 className="text-2xl font-bold text-gray-800">Manage Employees</h3>
       </div>
       
-      {/* Filter & Button Section */}
-      <div className="flex justify-between items-center gap-3">
+      {/* 👇 FIX: Search Box Width Reduced 👇 */}
+      <div className="flex flex-col md:flex-row justify-between items-center gap-3 mb-4">
         <input
           type="text"
           placeholder="Search Employees..."
-          className="flex-1 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-teal-500 shadow-sm"
+          // w-full (Mobile-ல் முழு அகலம்)
+          // md:w-64 (Desktop-ல் சிறிய அகலம் - சுருக்கப்பட்டது)
+          className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-teal-500 shadow-sm w-full md:w-64"
           onChange={handleFilter}
         />
         <Link
           to="/admin-dashboard/add-employee"
-          className="px-4 py-2 bg-teal-600 hover:bg-teal-700 rounded-md text-white transition shadow-sm flex items-center justify-center"
+          className="px-4 py-2 bg-teal-600 hover:bg-teal-700 rounded-md text-white transition shadow-sm flex items-center justify-center w-full md:w-auto"
         >
-          <span className="block md:hidden text-xl"><FaPlus /></span>
-          <span className="hidden md:block font-semibold">Add New Employee</span>
+          <span className=" font-semibold">Add New Employee</span>
         </Link>
       </div>
 
-      {/* --- SCROLL FIX START --- */}
-      <div className='mt-6 bg-white shadow-lg rounded-lg border border-gray-200'>
-        
-        {/* overflow-x-auto: இது கிடைமட்ட ஸ்க்ரோலை அனுமதிக்கும் */}
-        <div className="overflow-x-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100"> 
-            
-            {/* minWidth: 1000px: இது டேபிளை சுருங்க விடாமல் தடுத்து, ஸ்க்ரோல் பாரை வரவழைக்கும் */}
-            <div style={{ minWidth: '1000px' }}>
+      <div className='bg-white shadow-lg rounded-lg border border-gray-200'>
+        <div style={{ overflowX: "auto" }}>
+            <div style={{ minWidth: "1000px" }}> 
                 <DataTable 
                     columns={columns} 
                     data={filteredEmployee} 
@@ -99,7 +92,7 @@ const List = () => {
                     customStyles={{
                         headRow: {
                             style: {
-                                backgroundColor: '#f3f4f6', // Light Gray Header
+                                backgroundColor: '#f9fafb',
                                 borderBottom: '1px solid #e5e7eb',
                                 minHeight: '50px',
                             },
@@ -124,7 +117,6 @@ const List = () => {
             </div>
         </div>
       </div>
-      {/* --- SCROLL FIX END --- */}
     </div>
   )
 }
