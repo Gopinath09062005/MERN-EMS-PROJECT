@@ -13,29 +13,29 @@ const AdminDashboard = () => {
     };
 
     return (
-        <div className="flex h-screen bg-gray-100">
+        <div className="flex h-screen bg-gray-100 overflow-hidden">
             
-            {/* Sidebar */}
+            {/* Sidebar (z-50) */}
             <AdminSidebar isOpen={isSidebarOpen} closeSidebar={() => setIsSidebarOpen(false)} />
             
-            {/* Main Content */}
-            {/* flex-1 மற்றும் h-screen கொடுத்தால் போதும். overflow-hidden தேவையில்லை */}
+            {/* Main Layout */}
             <div className={`flex-1 flex flex-col h-screen transition-all duration-300 ${isSidebarOpen ? '' : ''} md:ml-64`}>
                 
-                <div className="flex-shrink-0 z-10 sticky top-0">
+                {/* 👇 NAVBAR FIX: z-30 (Sidebar-க்கு கீழே இருக்க வேண்டும்) 👇 */}
+                <div className="sticky top-0 z-30 bg-teal-600 shadow-md">
                     <Navbar toggleSidebar={toggleSidebar} />
                 </div>
 
-                {/* 👇 மாற்றம் இங்கே: w-full மற்றும் overflow-x-hidden சேர்க்கப்பட்டுள்ளது 👇 */}
-                <div className="flex-1 overflow-y-auto overflow-x-hidden p-4 md:p-6 bg-gray-50 w-full">
+                {/* Content */}
+                <div className="flex-1 overflow-y-auto p-4 md:p-6 bg-gray-50 w-full max-w-[100vw]">
                     <Outlet />
                 </div>
             </div>
             
-            {/* Overlay */}
+            {/* 👇 OVERLAY FIX: z-40 (Sidebar-க்கு பின்னால், Navbar-க்கு முன்னால்) 👇 */}
             {isSidebarOpen && (
                 <div 
-                    className="fixed inset-0 bg-black bg-opacity-50 z-30 md:hidden"
+                    className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
                     onClick={() => setIsSidebarOpen(false)}
                 ></div>
             )}

@@ -57,23 +57,40 @@ const Attendance = () => {
 
   return (
    <div className="p-6">
-      <div className="text-center">
-        <h3 className="text-2xl font-bold">Manage Attendance</h3>
+      <div className="text-center mb-6">
+        <h3 className="text-2xl font-bold text-gray-800">Manage Attendance</h3>
       </div>
       
-      {/* Responsive Search & Controls */}
-      <div className="flex flex-col md:flex-row justify-between items-center mt-4 gap-4">
-        <input type="text" placeholder="Search By Emp ID" className="px-4 py-2 border border-gray-300 rounded-md w-full md:w-auto focus:outline-none focus:border-teal-500" onChange={handleFilter} />
-        <p className='text-lg md:text-2xl'>
-            Mark Employees for <span className='font-bold underline'>{new Date().toISOString().split("T")[0]}{" "}</span>
+      {/* 👇 மாற்றம் இங்கே (GAP REDUCED) 👇 */}
+      {/* justify-between ஐ நீக்கிவிட்டு justify-center மற்றும் gap-8 கொடுத்துள்ளேன் */}
+      <div className="flex flex-col md:flex-row justify-center items-center gap-8 mb-6">
+        
+        {/* Search Box */}
+        <input 
+            type="text" 
+            placeholder="Search By Emp ID" 
+            className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-teal-500 w-full md:w-64" 
+            onChange={handleFilter} 
+        />
+        
+        {/* Date Text */}
+        <p className='text-lg font-medium'>
+            Mark Employees for <span className='font-bold text-teal-700 underline'>{new Date().toISOString().split("T")[0]}</span>
         </p>
-        <Link to="/admin-dashboard/attendance-report" className="px-4 py-2 bg-teal-600 text-white rounded-md hover:bg-teal-700 transition">Attendance Report</Link>
+        
+        {/* Report Button */}
+        <Link 
+            to="/admin-dashboard/attendance-report" 
+            className="px-6 py-2 bg-teal-600 text-white rounded-md hover:bg-teal-700 transition shadow-sm"
+        >
+            Attendance Report
+        </Link>
       </div>
+      {/* 👆 மாற்றம் முடிந்தது 👆 */}
 
-      {/* --- SCROLL FIX START --- */}
-      <div className='mt-6 bg-white shadow-md rounded-lg border border-gray-200 overflow-hidden'>
+      <div className='mt-6 bg-white shadow-lg rounded-lg border border-gray-200 overflow-hidden'>
         <div className="overflow-x-scroll">
-            <div style={{ minWidth: '1000px' }}> {/* Force min width */}
+            <div style={{ minWidth: '1000px' }}>
                 <DataTable 
                     columns={columns} 
                     data={filteredAttendance} 
@@ -104,7 +121,6 @@ const Attendance = () => {
             </div>
         </div>
       </div>
-      {/* --- SCROLL FIX END --- */}
     </div>
   )
 }

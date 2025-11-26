@@ -6,12 +6,13 @@ import { AiOutlineFileText } from "react-icons/ai";
 const AdminSidebar = ({ isOpen, closeSidebar }) => {
   return (
     <div
-      className={`bg-gray-800 text-white h-screen fixed left-0 top-0 bottom-0 space-y-2 w-64 z-40 transition-transform duration-300 transform 
+      // 👇 FIX: z-50 கொடுக்கப்பட்டுள்ளது (எல்லாவற்றிற்கும் மேலே இருக்கும்) 👇
+      className={`bg-gray-800 text-white h-screen fixed left-0 top-0 bottom-0 space-y-2 w-64 z-50 transition-transform duration-300 transform 
       ${isOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}
     >
       <div className="bg-teal-600 h-16 flex items-center justify-between px-4">
         <h3 className="text-2xl font-pacific text-center flex-1">EMS Admin</h3>
-        {/* Close Button only for Mobile */}
+        {/* Close Button */}
         <button className="md:hidden text-white text-xl" onClick={closeSidebar}>
             <FaTimes />
         </button>

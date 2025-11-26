@@ -8,7 +8,8 @@ const Sidebar = ({ isOpen, closeSidebar }) => {
 
   return (
     <div
-      className={`bg-gray-800 text-white h-screen fixed left-0 top-0 bottom-0 space-y-2 w-64 z-40 transition-transform duration-300 transform
+      // 👇 FIX: z-50 சேர்க்கப்பட்டுள்ளது 👇
+      className={`bg-gray-800 text-white h-screen fixed left-0 top-0 bottom-0 space-y-2 w-64 z-50 transition-transform duration-300 transform
       ${isOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}
     >
       {/* Header with Close Button */}
@@ -19,7 +20,6 @@ const Sidebar = ({ isOpen, closeSidebar }) => {
         </button>
       </div>
 
-      {/* Navigation Links */}
       <div className="px-3 space-y-2 mt-4">
         <NavLink
           to="/employee-dashboard"
