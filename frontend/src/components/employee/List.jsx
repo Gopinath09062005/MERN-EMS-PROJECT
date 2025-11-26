@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { columns, EmployeeButtons } from '../../utils/EmployeeHelper';
 import DataTable from "react-data-table-component";
 import axios from 'axios';
-import { API_URL } from '../../utils/config'; 
+import { API_URL } from '../../utils/config'; // Cloudinary பயன்படுத்துவதால் SERVER_URL தேவையில்லை
 import { FaPlus } from 'react-icons/fa';
 
 const List = () => {
@@ -21,31 +21,24 @@ const List = () => {
         );
         if (response.data.success) {
           let sno = 1;
-          const data = response.data.employees.map((emp) => {
-            
-            // 👇 DEBUGGING: கன்சோலில் URL வருகிறதா என்று பார்க்க 👇
-            console.log("Image URL for", emp.userId.name, ":", emp.userId.profileImage);
-
-            return {
-                _id: emp._id,
-                sno: sno++,
-                dep_name: emp.department.dep_name,
-                name: emp.userId.name,
-                dob: new Date(emp.dob).toLocaleDateString(),
-                profileImage: (
-                    <img 
-                        width={40} 
-                        height={40}
-                        className='rounded-full object-cover' 
-                        src={emp.userId.profileImage} 
-                        alt={emp.userId.name}
-                        // 👇 படம் இல்லையென்றால் Placeholder காட்டும் 👇
-                        onError={(e) => {e.target.src = "https://via.placeholder.com/40?text=User"}} 
-                    />
-                ), 
-                action: (<EmployeeButtons Id={emp._id} />),
-            }
-          });
+          const data = response.data.employees.map((emp) => ({
+            _id: emp._id,
+            sno: sno++,
+            dep_name: emp.department.dep_name,
+            name: emp.userId.name,
+            dob: new Date(emp.dob).toLocaleDateString(),
+            // Image Direct URL from Cloudinary
+            profileImage: (
+                <img 
+                    width={40} 
+                    height={40}
+                    className='rounded-full object-cover' 
+                    src={emp.userId.profileImage} 
+                    alt={emp.userId.name} 
+                />
+            ), 
+            action: (<EmployeeButtons Id={emp._id} />),
+          }));
           setEmployees(data);
           setFilteredEmployees(data)
         }
@@ -73,6 +66,7 @@ const List = () => {
         <h3 className="text-2xl font-bold text-gray-800">Manage Employees</h3>
       </div>
       
+      {/* Filter & Button Section */}
       <div className="flex justify-between items-center gap-3">
         <input
           type="text"
@@ -89,9 +83,14 @@ const List = () => {
         </Link>
       </div>
 
-      <div className='mt-6 bg-white shadow-lg rounded-lg border border-gray-200 overflow-hidden'>
-        <div className="overflow-x-auto scrollbar-hide"> 
-            <div style={{ minWidth: '800px' }}>
+      {/* --- SCROLL FIX START --- */}
+      <div className='mt-6 bg-white shadow-lg rounded-lg border border-gray-200'>
+        
+        {/* overflow-x-auto: இது கிடைமட்ட ஸ்க்ரோலை அனுமதிக்கும் */}
+        <div className="overflow-x-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100"> 
+            
+            {/* minWidth: 1000px: இது டேபிளை சுருங்க விடாமல் தடுத்து, ஸ்க்ரோல் பாரை வரவழைக்கும் */}
+            <div style={{ minWidth: '1000px' }}>
                 <DataTable 
                     columns={columns} 
                     data={filteredEmployee} 
@@ -100,7 +99,7 @@ const List = () => {
                     customStyles={{
                         headRow: {
                             style: {
-                                backgroundColor: '#f3f4f6', 
+                                backgroundColor: '#f3f4f6', // Light Gray Header
                                 borderBottom: '1px solid #e5e7eb',
                                 minHeight: '50px',
                             },
@@ -114,16 +113,6 @@ const List = () => {
                                 paddingLeft: '16px',
                             },
                         },
-                        rows: {
-                            style: {
-                                fontSize: '14px',
-                                '&:not(:last-of-type)': {
-                                    borderBottomStyle: 'solid',
-                                    borderBottomWidth: '1px',
-                                    borderBottomColor: '#f3f4f6',
-                                },
-                            },
-                        },
                         cells: {
                             style: {
                                 paddingLeft: '16px',
@@ -135,6 +124,7 @@ const List = () => {
             </div>
         </div>
       </div>
+      {/* --- SCROLL FIX END --- */}
     </div>
   )
 }
