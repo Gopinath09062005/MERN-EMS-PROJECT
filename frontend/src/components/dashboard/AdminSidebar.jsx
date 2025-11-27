@@ -21,7 +21,7 @@ const AdminSidebar = ({ isOpen, closeSidebar }) => {
     >
       
       {/* 👇 மாற்றம் இங்கே: பழைய Teal கலர் திரும்ப வந்துவிட்டது 👇 */}
-      <div className="bg-teal-600 h-16 flex items-center justify-between px-4 shadow-md">
+      <div className="bg-teal-600 h-20 flex items-center justify-between px-4 shadow-md">
         
         {/* Logo & Text */}
         <div className="flex items-center gap-3">

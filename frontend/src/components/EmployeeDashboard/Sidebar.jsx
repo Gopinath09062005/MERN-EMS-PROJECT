@@ -14,7 +14,7 @@ const Sidebar = ({ isOpen, closeSidebar }) => {
     >
       
       {/* 👇 மாற்றம் இங்கே: லோகோ சேர்க்கப்பட்டுள்ளது 👇 */}
-      <div className="bg-teal-600 h-16 flex items-center justify-between px-4 shadow-md">
+      <div className="bg-teal-600 h-20 flex items-center justify-between px-4 shadow-md">
         
         {/* Logo & Text */}
         <div className="flex items-center gap-3">

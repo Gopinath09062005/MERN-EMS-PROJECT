@@ -7,8 +7,8 @@ import { API_URL } from '../../utils/config';
 
 const Attendance = () => {
   const [attendance, setAttendance] = useState([])
-  const [loading, setLoading] = useState(false);
-  const [filteredAttendance, setFilteredAttendance] = useState(null)
+  const [loading, setLoading] = useState(true); // Loading state initially true
+  const [filteredAttendance, setFilteredAttendance] = useState([])
 
   const statusChange = () => {
     fetchAttendance()
@@ -20,6 +20,9 @@ const Attendance = () => {
         const response = await axios.get(`${API_URL}/attendance`,{
             headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
           });
+        
+        console.log("Attendance Data:", response.data); // Debugging
+
         if (response.data.success) {
           let sno = 1;
           const data = response.data.attendance.map((att) => ({
@@ -33,13 +36,15 @@ const Attendance = () => {
           setFilteredAttendance(data)
         }
       } catch (error) {
+        console.log("Attendance Error:", error); // Debugging
         if (error.response && !error.response.data.success) {
           alert(error.response.data.error);
         }
       } finally {
-        setLoading(false);
+        setLoading(false); // எரர் வந்தாலும் லோடிங் நிற்கும்
       }
     };
+
   useEffect(() => {
     fetchAttendance();
   }, []);
@@ -51,8 +56,9 @@ const Attendance = () => {
     setFilteredAttendance(records)
   }
 
-  if (!filteredAttendance) {
-    return <div>Loading...</div>
+  // 👇 LOADING UI 👇
+  if (loading) {
+    return <div className="text-center mt-10 text-xl font-bold">Loading Attendance...</div>
   }
 
   return (
@@ -61,24 +67,16 @@ const Attendance = () => {
         <h3 className="text-2xl font-bold text-gray-800">Manage Attendance</h3>
       </div>
       
-      {/* 👇 மாற்றம் இங்கே (GAP REDUCED) 👇 */}
-      {/* justify-between ஐ நீக்கிவிட்டு justify-center மற்றும் gap-8 கொடுத்துள்ளேன் */}
       <div className="flex flex-col md:flex-row justify-center items-center gap-8 mb-6">
-        
-        {/* Search Box */}
         <input 
             type="text" 
             placeholder="Search By Emp ID" 
             className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-teal-500 w-full md:w-64" 
             onChange={handleFilter} 
         />
-        
-        {/* Date Text */}
         <p className='text-lg font-medium'>
             Mark Employees for <span className='font-bold text-teal-700 underline'>{new Date().toISOString().split("T")[0]}</span>
         </p>
-        
-        {/* Report Button */}
         <Link 
             to="/admin-dashboard/attendance-report" 
             className="px-6 py-2 bg-teal-600 text-white rounded-md hover:bg-teal-700 transition shadow-sm"
@@ -86,7 +84,6 @@ const Attendance = () => {
             Attendance Report
         </Link>
       </div>
-      {/* 👆 மாற்றம் முடிந்தது 👆 */}
 
       <div className='mt-6 bg-white shadow-lg rounded-lg border border-gray-200 overflow-hidden'>
         <div className="overflow-x-scroll">
@@ -96,26 +93,9 @@ const Attendance = () => {
                     data={filteredAttendance} 
                     pagination 
                     customStyles={{
-                        headRow: {
-                            style: {
-                                backgroundColor: '#f9fafb',
-                                borderBottom: '1px solid #e5e7eb',
-                            },
-                        },
-                        headCells: {
-                            style: {
-                                fontSize: '15px',
-                                fontWeight: '600',
-                                textTransform: 'uppercase',
-                                color: '#374151',
-                            },
-                        },
-                        cells: {
-                            style: {
-                                fontSize: '14px',
-                                padding: '12px',
-                            },
-                        },
+                        headRow: { style: { backgroundColor: '#f9fafb', borderBottom: '1px solid #e5e7eb' } },
+                        headCells: { style: { fontSize: '15px', fontWeight: '600', textTransform: 'uppercase', color: '#374151' } },
+                        cells: { style: { fontSize: '14px', padding: '12px' } },
                     }}
                 />
             </div>

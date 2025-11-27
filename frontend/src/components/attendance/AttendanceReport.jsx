@@ -51,6 +51,7 @@ const AttendanceReport = () => {
         <h3 className="text-2xl font-bold text-gray-800">Attendance Report</h3>
       </div>
       
+      {/* Filter Section */}
       <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-6 p-4 bg-white shadow-sm rounded-lg border border-gray-200">
         <h2 className="text-lg font-semibold text-gray-700">Filter by Date</h2>
         <input
@@ -67,7 +68,12 @@ const AttendanceReport = () => {
         <div className="text-center py-4">Loading...</div>
       ) : (
         Object.keys(report).length > 0 ? (
-          Object.entries(report).map(([date, record]) => (
+          
+          // 👇 FIX: தேதியை வரிசைப்படுத்துகிறோம் (Descending Order - Today First) 👇
+          Object.entries(report)
+            .sort((a, b) => b[0].localeCompare(a[0])) // புதிய தேதி மேலே வரும்
+            .map(([date, record]) => (
+            
             <div className="mt-6 bg-white shadow-lg rounded-lg border border-gray-200 overflow-hidden" key={date}>
               
               <div className="bg-gray-50 px-6 py-3 border-b border-gray-200 flex items-center">
@@ -78,7 +84,6 @@ const AttendanceReport = () => {
                 <table className="w-full text-sm text-left text-gray-500" style={{ minWidth: '800px' }}>
                   <thead className="text-xs text-gray-700 uppercase bg-gray-100 border-b">
                     <tr>
-                      {/* FIX: Fixed Widths for Columns */}
                       <th className="px-6 py-3 font-bold w-16">S No</th>
                       <th className="px-6 py-3 font-bold w-32">Employee ID</th>
                       <th className="px-6 py-3 font-bold w-1/4">Name</th>

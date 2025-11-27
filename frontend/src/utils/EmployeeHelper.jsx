@@ -22,7 +22,8 @@ export const columns = [
   { 
     name: "Department", 
     selector: (row) => row.dep_name, 
-    width: "120px" 
+    // 👇 மாற்றம் இங்கே: 120px-லிருந்து 170px-ஆக மாற்றப்பட்டுள்ளது 👇
+    width: "170px" 
   },
   { 
     name: "DOB", 
@@ -31,13 +32,15 @@ export const columns = [
     width: "130px" 
   },
   { 
-    name: "Action", 
+    // Action Header Center Fix
+    name: <div style={{ width: "100%", textAlign: "center" }}>ACTION</div>, 
     selector: (row) => row.action, 
-    // 👇 மாற்றம் இங்கே: center: true - ஐ நீக்கிவிட்டு style சேர்க்கவும் 👇
+    // Action Buttons Center Fix
     style: {
         justifyContent: 'center', 
+        display: 'flex',
     },
-    width: "360px"
+    width: "450px" 
   },
 ];
 
@@ -85,11 +88,11 @@ export const getEmployees = async (id) => {
   return employees;
 };
 
-export const EmployeeButtons = ({ Id }) => {
+export const EmployeeButtons = ({ Id, onEmployeeDelete }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="flex space-x-3">
+    <div className="flex space-x-3 justify-center w-full">
       <button
         className="px-3 py-1 bg-teal-600 text-white rounded hover:bg-teal-700 transition"
         onClick={() => navigate(`/admin-dashboard/employees/${Id}`)}
@@ -113,6 +116,12 @@ export const EmployeeButtons = ({ Id }) => {
         onClick={() => navigate(`/admin-dashboard/employees/leaves/${Id}`)}
       >
         Leave
+      </button>
+      <button
+        className="px-3 py-1 bg-red-700 text-white rounded hover:bg-red-800 transition"
+        onClick={() => onEmployeeDelete(Id)}
+      >
+        Delete
       </button>
     </div>
   );

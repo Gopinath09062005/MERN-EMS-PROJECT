@@ -1,22 +1,23 @@
 import multer from "multer";
 import Employee from "../models/Employee.js";
 import User from "../models/User.js";
+import Leave from "../models/Leave.js";
+import Salary from "../models/Salary.js";
 import bcrypt from "bcrypt";
 import { v2 as cloudinary } from "cloudinary";
 import { CloudinaryStorage } from "multer-storage-cloudinary";
 import dotenv from "dotenv";
-import path from "path";
 
 dotenv.config();
 
-// 1. Cloudinary Configuration
+// 1. Cloudinary Configuration (இது இருந்தால் தான் Delete வேலை செய்யும்)
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-// 2. Configure Storage (Cloudinary)
+// 2. Configure Storage
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
@@ -52,13 +53,12 @@ const addEmployee = async (req, res) => {
 
     const hashPassword = await bcrypt.hash(password, 10);
 
-    // 3. Save Cloudinary Image URL directly
     const newUser = new User({
       name,
       email,
       password: hashPassword,
       role,
-      profileImage: req.file ? req.file.path : "", // Cloudinary URL
+      profileImage: req.file ? req.file.path : "",
     });
     
     const savedUser = await newUser.save();
@@ -77,7 +77,6 @@ const addEmployee = async (req, res) => {
     await newEmployee.save();
     return res.status(200).json({ success: true, message: "employee created" });
   } catch (error) {
-    console.log(error.message);
     return res
       .status(500)
       .json({ success: false, error: "server error in adding employees" });
@@ -132,10 +131,7 @@ const updateEmployee = async (req, res) => {
       return res.status(404).json({ success: false, error: "user not found" });
     }
 
-    // 👇 Update User Data (Name & Profile Image)
     const updatedUserData = { name };
-    
-    // புது படம் இருந்தால் மட்டும் அப்டேட் செய் (Cloudinary URL)
     if (req.file) {
       updatedUserData.profileImage = req.file.path;
     }
@@ -143,10 +139,9 @@ const updateEmployee = async (req, res) => {
     const updateUser = await User.findByIdAndUpdate(
       { _id: employee.userId },
       updatedUserData,
-      { new: true } // Returns updated doc
+      { new: true }
     );
 
-    // 👇 Update Employee Data
     const updateEmployee = await Employee.findByIdAndUpdate(
       { _id: id },
       {
@@ -180,4 +175,42 @@ const fetchEmployeesByDepId = async (req, res) => {
   }
 };
 
-export { addEmployee, upload, getEmployees, getEmployee, updateEmployee, fetchEmployeesByDepId };
+// 👇👇👇 FIX: ROBUST DELETE FUNCTION 👇👇👇
+const deleteEmployee = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const employee = await Employee.findById({ _id: id });
+    if (!employee) {
+      return res.status(404).json({ success: false, error: "Employee not found" });
+    }
+
+    const user = await User.findById({ _id: employee.userId });
+    if (!user) {
+      return res.status(404).json({ success: false, error: "User not found" });
+    }
+
+    // 1. Cloudinary Delete with Safety Check
+    // பழைய லோக்கல் இமேஜ் இருந்தால் இது கிராஷ் ஆகாது
+    if (user.profileImage && user.profileImage.includes('cloudinary')) {
+      try {
+        const publicId = user.profileImage.split("/").pop().split(".")[0];
+        await cloudinary.uploader.destroy(`ems-uploads/${publicId}`);
+      } catch (err) {
+        console.log("Error deleting image from Cloudinary:", err);
+      }
+    }
+
+    await Leave.deleteMany({ employeeId: id });
+    await Salary.deleteMany({ employeeId: id });
+    await User.findByIdAndDelete({ _id: employee.userId });
+    await Employee.findByIdAndDelete({ _id: id });
+
+    return res.status(200).json({ success: true, message: "Employee deleted successfully" });
+  } catch (error) {
+    console.log("Delete Error:", error); // டெர்மினலில் எரரைக் காட்டும்
+    return res.status(500).json({ success: false, error: "delete employee server error" });
+  }
+};
+
+export { addEmployee, upload, getEmployees, getEmployee, updateEmployee, fetchEmployeesByDepId, deleteEmployee };

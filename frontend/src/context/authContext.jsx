@@ -8,32 +8,39 @@ const AuthContext = ({children}) => {
     const [user, setUser] = useState(null)
     const [loading, setLoading] = useState(true)
 
-    useEffect(()=>{
-         const verifyUser = async ()=>{
-            try{
+    useEffect(() => {
+         const verifyUser = async () => {
+            try {
+                // Only checking localStorage now
                 const token = localStorage.getItem('token')
-                if(token){
-                const response = await axios.get(`${API_URL}/auth/verify`, {
-                    headers: {
-                      Authorization: `Bearer ${token}`
-                    }  
-                })
-                if(response.data.success){
-                    setUser(response.data.user)
-                }
-            } else {
-                setUser(null)
-            }
-            } catch(error){
-                if(error.response && !error.response.data.error){
+                
+                if (token) {
+                    const response = await axios.get(`${API_URL}/auth/verify`, {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }  
+                    })
+
+                    if (response.data.success) {
+                        setUser(response.data.user)
+                    } else {
+                        setUser(null)
+                        localStorage.removeItem("token")
+                    }
+                } else {
                     setUser(null)
                 }
-            } finally{
+            } catch (error) {
+                console.log("Authentication Error:", error)
+                setUser(null)
+                localStorage.removeItem("token")
+            } finally {
                 setLoading(false)
             }
          }
+         
          verifyUser()
-    },[])
+    }, [])
 
     const login = (user) => {
         setUser(user)
@@ -51,5 +58,5 @@ const AuthContext = ({children}) => {
     )
 }
 
-export const useAuth = ()=> useContext(userContext)
+export const useAuth = () => useContext(userContext)
 export default AuthContext
