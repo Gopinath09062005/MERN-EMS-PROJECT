@@ -13,7 +13,7 @@ const Homepage = () => {
     <div className="flex flex-col min-h-screen">
       {/* Header */}
       <header className="bg-teal-600 text-white p-4 flex justify-between items-center shadow-md fixed top-0 left-0 w-full z-50">
-        <h1 className="text-2xl font-bold font-pacific flex-1">
+        <h1 className="text-2xl font-bold font-pacific flex-1 text-center">
           EMPLOYEE MANAGEMENT SYSTEM
         </h1>
         <button
