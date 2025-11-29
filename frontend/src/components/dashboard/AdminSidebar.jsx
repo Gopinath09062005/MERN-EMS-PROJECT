@@ -70,7 +70,7 @@ const AdminSidebar = ({ isOpen, closeSidebar }) => {
         </NavLink>
         <NavLink to="/admin-dashboard/attendance-report" className={({ isActive }) => `${isActive ? "bg-teal-500" : ""} flex items-center space-x-4 py-2.5 px-4 rounded transition-colors hover:bg-teal-600`} onClick={closeSidebar}>
           <AiOutlineFileText />
-          <span>Report</span>
+          <span>Attendance Report</span>
         </NavLink>
         <NavLink to="/admin-dashboard/setting" className={({ isActive }) => `${isActive ? "bg-teal-500" : ""} flex items-center space-x-4 py-2.5 px-4 rounded transition-colors hover:bg-teal-600`} onClick={closeSidebar}>
           <FaCogs />

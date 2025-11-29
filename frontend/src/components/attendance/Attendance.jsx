@@ -7,22 +7,26 @@ import { API_URL } from '../../utils/config';
 
 const Attendance = () => {
   const [attendance, setAttendance] = useState([])
-  const [loading, setLoading] = useState(true); // Loading state initially true
-  const [filteredAttendance, setFilteredAttendance] = useState([])
+  
+  // 1. Loading ஆரம்பத்தில் true ஆக இருக்கும்
+  const [loading, setLoading] = useState(true); 
+  const [filteredAttendance, setFilteredAttendance] = useState(null)
 
   const statusChange = () => {
-    fetchAttendance()
+    // 2. பட்டனை கிளிக் செய்யும்போது Loading காட்டக்கூடாது (false அனுப்பவும்)
+    fetchAttendance(false) 
   }
 
-  const fetchAttendance = async () => {
-      setLoading(true);
+  // isLoading=true என்றால் லோடிங் காட்டும், false என்றால் பின்னணியில் நடக்கும்
+  const fetchAttendance = async (isLoading = true) => {
+      if(isLoading) {
+        setLoading(true);
+      }
       try {
         const response = await axios.get(`${API_URL}/attendance`,{
             headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
           });
         
-        console.log("Attendance Data:", response.data); // Debugging
-
         if (response.data.success) {
           let sno = 1;
           const data = response.data.attendance.map((att) => ({
@@ -36,17 +40,16 @@ const Attendance = () => {
           setFilteredAttendance(data)
         }
       } catch (error) {
-        console.log("Attendance Error:", error); // Debugging
         if (error.response && !error.response.data.success) {
           alert(error.response.data.error);
         }
       } finally {
-        setLoading(false); // எரர் வந்தாலும் லோடிங் நிற்கும்
+        setLoading(false); // வேலை முடிந்ததும் லோடிங் நிறுத்து
       }
     };
 
   useEffect(() => {
-    fetchAttendance();
+    fetchAttendance(true); // முதல் முறை மட்டும் லோடிங் காட்டு
   }, []);
 
   const handleFilter = (e) => {
@@ -54,11 +57,6 @@ const Attendance = () => {
       emp.employeeId.toLowerCase().includes(e.target.value.toLowerCase())
     ))
     setFilteredAttendance(records)
-  }
-
-  // 👇 LOADING UI 👇
-  if (loading) {
-    return <div className="text-center mt-10 text-xl font-bold">Loading Attendance...</div>
   }
 
   return (
@@ -85,21 +83,32 @@ const Attendance = () => {
         </Link>
       </div>
 
+      {/* 👇 LOADING FIX & SPACING FIX 👇 */}
       <div className='mt-6 bg-white shadow-lg rounded-lg border border-gray-200 overflow-hidden'>
-        <div className="overflow-x-scroll">
-            <div style={{ minWidth: '1000px' }}>
-                <DataTable 
-                    columns={columns} 
-                    data={filteredAttendance} 
-                    pagination 
-                    customStyles={{
-                        headRow: { style: { backgroundColor: '#f9fafb', borderBottom: '1px solid #e5e7eb' } },
-                        headCells: { style: { fontSize: '15px', fontWeight: '600', textTransform: 'uppercase', color: '#374151' } },
-                        cells: { style: { fontSize: '14px', padding: '12px' } },
-                    }}
-                />
+        
+        {/* லோடிங் இருந்தால் மட்டும் ஸ்பின்னரை காட்டு, இல்லையென்றால் டேபிளை காட்டு */}
+        {loading ? (
+            <div className="flex justify-center items-center p-10">
+                <div className="animate-spin rounded-full h-10 w-10 border-t-4 border-teal-600"></div>
             </div>
-        </div>
+        ) : (
+            <div className="overflow-x-scroll">
+                <div style={{ minWidth: '1000px' }}>
+                    <DataTable 
+                        columns={columns} 
+                        data={filteredAttendance} 
+                        pagination 
+                        // 👇 Spacing Fix: dense mode அல்லது padding குறைத்தல்
+                        dense 
+                        customStyles={{
+                            headRow: { style: { backgroundColor: '#f9fafb', borderBottom: '1px solid #e5e7eb', minHeight: '50px' } },
+                            headCells: { style: { fontSize: '15px', fontWeight: '600', textTransform: 'uppercase', color: '#374151' } },
+                            cells: { style: { fontSize: '14px', padding: '10px' } }, // Padding குறைக்கப்பட்டது
+                        }}
+                    />
+                </div>
+            </div>
+        )}
       </div>
     </div>
   )
