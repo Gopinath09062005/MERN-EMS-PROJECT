@@ -70,7 +70,6 @@ const Detail = () => {
 
             {/* Text Details Section */}
             <div>
-              {/* 👇 FIX: justify-center md:justify-start எல்லா இடத்திலும் சேர்க்கப்பட்டுள்ளது 👇 */}
               
               {/* Name */}
               <div className="flex space-x-3 mb-5 justify-center md:justify-start">

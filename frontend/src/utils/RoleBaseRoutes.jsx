@@ -11,7 +11,7 @@ const RoleBaseRoutes = ({children, requiredRole}) => {
 
     // Role check
     if(!requiredRole.includes(user.role)){
-        // பயனர் Admin இல்லையென்றால், unauthorized பக்கத்திற்கோ அல்லது Login-க்கோ அனுப்பலாம்
+        // If user is not Admin, redirect to unauthorized page or Login
         return <Navigate to="/unauthorized"/> 
     }
 

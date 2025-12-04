@@ -70,7 +70,6 @@ const Table = () => {
               onChange={filterByInput}
             />
             
-            {/* Buttons Group */}
             <div className="flex gap-2">
               <button className="px-4 py-2 bg-teal-600 text-white hover:bg-teal-700 rounded-md transition" onClick={() => filterByButton("Pending")}>Pending</button>
               <button className="px-4 py-2 bg-teal-600 text-white hover:bg-teal-700 rounded-md transition" onClick={() => filterByButton("Approved")}>Approved</button>
@@ -78,10 +77,8 @@ const Table = () => {
             </div>
           </div>
 
-          {/* --- SCROLL FIX START --- */}
           <div className="mt-6 bg-white shadow-md rounded-lg border border-gray-200 overflow-hidden">
             <div className="overflow-x-auto">
-                {/* Inline Style to Force Width */}
                 <div style={{ minWidth: '1000px' }}>
                     <DataTable 
                         columns={columns} 
@@ -113,7 +110,6 @@ const Table = () => {
                 </div>
             </div>
           </div>
-          {/* --- SCROLL FIX END --- */}
 
         </div>
       ) : ( <div>Loading.....</div> )}

@@ -11,7 +11,7 @@ const List = () => {
   const [empLoading, setEmpLoading] = useState(false);
   const [filteredEmployee, setFilteredEmployees] = useState([])
 
-  // 👇 1. டேட்டாவை மீண்டும் எடுக்கும் Function (Refresh செய்ய)
+  // 1. Function to fetch employee data (for refresh)
   const fetchEmployees = async () => {
     setEmpLoading(true);
     try {
@@ -34,7 +34,7 @@ const List = () => {
                   alt={emp.userId.name} 
               />
           ), 
-          // 👇 3. onEmployeeDelete ஃபங்ஷனை உள்ளே அனுப்புகிறோம்
+          // 3. Passing onEmployeeDelete function inside
           action: (<EmployeeButtons Id={emp._id} onEmployeeDelete={onEmployeeDelete} />),
         }));
         setEmployees(data);
@@ -49,7 +49,7 @@ const List = () => {
     }
   };
 
-useEffect(() => {
+  useEffect(() => {
     const fetchEmployees = async () => {
       setEmpLoading(true);
       try {
@@ -60,9 +60,9 @@ useEffect(() => {
         if (response.data.success) {
           let sno = 1;
           
-          // 👇 மாற்றம் இங்கே: Admin ரோல் இல்லாதவர்களை மட்டும் வடிகட்டுகிறோம் 👇
+          // Change here: Filter out users without admin role
           const data = response.data.employees
-            .filter((emp) => emp.userId.role !== "admin") // இந்த வரியைச் சேர்த்தால் Admin தெரிய மாட்டார்
+            .filter((emp) => emp.userId.role !== "admin") // This line will hide admin users
             .map((emp) => ({
               _id: emp._id,
               sno: sno++,
@@ -95,7 +95,6 @@ useEffect(() => {
     fetchEmployees();
   }, []);
 
-  // 👇 2. புதிய DELETE Function Logic
   const onEmployeeDelete = async (id) => {
     const confirm = window.confirm("Are you sure you want to delete this employee?");
     if (confirm) {
@@ -106,7 +105,7 @@ useEffect(() => {
                 },
             });
             if (response.data.success) {
-                fetchEmployees(); // வெற்றிகரமாக அழித்த பின் லிஸ்டை அப்டேட் செய்
+                fetchEmployees(); 
             }
         } catch (error) {
             if (error.response && !error.response.data.success) {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from "react-router-dom";
 import { columns, AttendanceHelper } from '../../utils/AttendanceHelper';
 import DataTable from "react-data-table-component";
@@ -7,17 +7,16 @@ import { API_URL } from '../../utils/config';
 
 const Attendance = () => {
   const [attendance, setAttendance] = useState([])
-  
-  // 1. Loading ஆரம்பத்தில் true ஆக இருக்கும்
+  // 1. Loading is true initially
   const [loading, setLoading] = useState(true); 
   const [filteredAttendance, setFilteredAttendance] = useState(null)
 
   const statusChange = () => {
-    // 2. பட்டனை கிளிக் செய்யும்போது Loading காட்டக்கூடாது (false அனுப்பவும்)
+    // 2. When button is clicked, do not show loading (send false)
     fetchAttendance(false) 
   }
 
-  // isLoading=true என்றால் லோடிங் காட்டும், false என்றால் பின்னணியில் நடக்கும்
+  // If isLoading=true, show loading spinner, else fetch in background
   const fetchAttendance = async (isLoading = true) => {
       if(isLoading) {
         setLoading(true);
@@ -44,12 +43,12 @@ const Attendance = () => {
           alert(error.response.data.error);
         }
       } finally {
-        setLoading(false); // வேலை முடிந்ததும் லோடிங் நிறுத்து
+        setLoading(false); // Stop loading after work is done
       }
     };
 
   useEffect(() => {
-    fetchAttendance(true); // முதல் முறை மட்டும் லோடிங் காட்டு
+    fetchAttendance(true); // Show loading only for first time
   }, []);
 
   const handleFilter = (e) => {
@@ -83,10 +82,10 @@ const Attendance = () => {
         </Link>
       </div>
 
-      {/* 👇 LOADING FIX & SPACING FIX 👇 */}
+      {/*  LOADING & SPACING FIX  */}
       <div className='mt-6 bg-white shadow-lg rounded-lg border border-gray-200 overflow-hidden'>
         
-        {/* லோடிங் இருந்தால் மட்டும் ஸ்பின்னரை காட்டு, இல்லையென்றால் டேபிளை காட்டு */}
+        {/* Show spinner only if loading, else show table */}
         {loading ? (
             <div className="flex justify-center items-center p-10">
                 <div className="animate-spin rounded-full h-10 w-10 border-t-4 border-teal-600"></div>
@@ -98,12 +97,12 @@ const Attendance = () => {
                         columns={columns} 
                         data={filteredAttendance} 
                         pagination 
-                        // 👇 Spacing Fix: dense mode அல்லது padding குறைத்தல்
+                        // Spacing Fix: dense mode or reduced padding
                         dense 
                         customStyles={{
                             headRow: { style: { backgroundColor: '#f9fafb', borderBottom: '1px solid #e5e7eb', minHeight: '50px' } },
                             headCells: { style: { fontSize: '15px', fontWeight: '600', textTransform: 'uppercase', color: '#374151' } },
-                            cells: { style: { fontSize: '14px', padding: '10px' } }, // Padding குறைக்கப்பட்டது
+                            cells: { style: { fontSize: '14px', padding: '10px' } }, // Reduced padding
                         }}
                     />
                 </div>

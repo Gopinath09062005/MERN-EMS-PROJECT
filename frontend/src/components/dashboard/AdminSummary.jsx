@@ -40,7 +40,7 @@ const AdminSummary = () => {
         <p className="text-gray-500 mt-1">Welcome back, here is a quick summary of your organization.</p>
       </div>
 
-      {/* Key Metrics Grid - லிங்க் சேர்க்கப்பட்டுள்ளது */}
+      {/* link added */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         <SummaryCard 
             icon={<FaUsers />} 
@@ -61,12 +61,12 @@ const AdminSummary = () => {
             text="Monthly Salary" 
             number={`₹${summary.totalSalary}`} 
             color="bg-red-600" 
-            // Salary Page லிங்க் (தேவைப்பட்டால் மாற்றிக்கொள்ளலாம்)
+            // Salary Page 
             // link="/admin-dashboard/salary/add" 
         />
       </div>
 
-      {/* Leave Details Section - எல்லோரும் Leave Page-க்கு போவார்கள் */}
+      {/* Leave Details Section -  */}
       <div className="mt-12">
         <h4 className="text-2xl font-bold text-gray-800 mb-6 border-l-4 border-teal-600 pl-3">Leave Details</h4>
         

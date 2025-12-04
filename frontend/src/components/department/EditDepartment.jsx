@@ -54,13 +54,11 @@ const EditDepartment = () => {
   };
 
   return (
-    // ... JSX code same as before
     <>
       {depLoading ? <div>Loading...</div> : (
         <div className="max-w-3xl mx-auto mt-10 bg-white p-8 rounded-md shadow-md w-96">
           <h2 className="text-2xl font-bold mb-6">Edit Department</h2>
           <form onSubmit={handleSubmit}>
-             {/* ... Inputs same as before ... */}
               <div>
                 <label htmlFor="dep_name" className="text-sm font-medium text-gray-700">Department Name</label>
                 <input type="text" name="dep_name" onChange={handleChange} value={department.dep_name} className="mt-1 w-full p-2 border border-gray-300 rounded-md" required />

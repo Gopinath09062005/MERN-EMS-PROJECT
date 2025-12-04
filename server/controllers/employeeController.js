@@ -10,7 +10,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-// 1. Cloudinary Configuration (இது இருந்தால் தான் Delete வேலை செய்யும்)
+// 1. Cloudinary Configuration (Required for delete functionality)
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
@@ -175,7 +175,7 @@ const fetchEmployeesByDepId = async (req, res) => {
   }
 };
 
-// 👇👇👇 FIX: ROBUST DELETE FUNCTION 👇👇👇
+// Robust delete function
 const deleteEmployee = async (req, res) => {
   try {
     const { id } = req.params;
@@ -191,7 +191,7 @@ const deleteEmployee = async (req, res) => {
     }
 
     // 1. Cloudinary Delete with Safety Check
-    // பழைய லோக்கல் இமேஜ் இருந்தால் இது கிராஷ் ஆகாது
+    // If old local image exists, this will not crash
     if (user.profileImage && user.profileImage.includes('cloudinary')) {
       try {
         const publicId = user.profileImage.split("/").pop().split(".")[0];
@@ -208,7 +208,7 @@ const deleteEmployee = async (req, res) => {
 
     return res.status(200).json({ success: true, message: "Employee deleted successfully" });
   } catch (error) {
-    console.log("Delete Error:", error); // டெர்மினலில் எரரைக் காட்டும்
+    console.log("Delete Error:", error); // Shows error in terminal
     return res.status(500).json({ success: false, error: "delete employee server error" });
   }
 };

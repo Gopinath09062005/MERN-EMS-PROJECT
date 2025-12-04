@@ -18,7 +18,7 @@ const EmployeeDashboard = () => {
       
       <div className={`flex-1 flex flex-col h-screen transition-all duration-300 ${isSidebarOpen ? '' : ''} md:ml-64`}>
         
-        {/* 👇 NAVBAR FIX: z-30 (Sidebar-க்கு கீழே இருக்க வேண்டும்) 👇 */}
+        {/* Navbar should be below the Sidebar (z-30) */}
         <div className="sticky top-0 z-30 bg-teal-600 shadow-md">
            <Navbar toggleSidebar={toggleSidebar} />
         </div>
@@ -29,7 +29,7 @@ const EmployeeDashboard = () => {
         </div>
       </div>
 
-      {/* 👇 OVERLAY FIX: z-40 (Sidebar-க்கு பின்னால்) 👇 */}
+      {/* Overlay should be behind the Sidebar (z-40) */}
       {isSidebarOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"

@@ -159,7 +159,7 @@ const Add = () => {
                   type="date"
                   name="payDate"
                   onChange={handleChange}
-                  // 👇 Future Dates Blocked Here 👇
+                  //  Future Dates Blocked Here 
                   max={new Date().toISOString().split("T")[0]} 
                   className="mt-1 p-2 block w-full border border-gray-300 rounded-md focus:outline-none focus:border-teal-500"
                   required

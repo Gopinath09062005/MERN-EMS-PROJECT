@@ -9,20 +9,19 @@ import settingRouter from "./routes/setting.js";
 import attendanceRouter from "./routes/attendance.js";
 import dashboardRouter from "./routes/dashboard.js";
 import connectToDatabase from "./config/db.js";
-import path from "path"; // 1. இதை மறக்காமல் Import செய்யவும்
+import path from "path"; 
 
 connectToDatabase();
 const app = express();
 
 app.use(cors({
-    origin: ["http://localhost:5173", "https://mern-ems-project-frontend.vercel.app"],
-    credentials: true
+  origin: ["http://localhost:5173", "https://mern-ems-project-frontend.vercel.app"],
+  credentials: true
 }));
 
 app.use(express.json());
 
-// 2. 👇 இந்த வரிகளை அப்படியே மாற்றவும் (Static File Serving) 👇
-// இது public/uploads ஃபோல்டரை 'http://localhost:5000/uploads' என்ற முகவரியில் திறக்கும்
+// Static File Serving: This will serve the 'public/uploads' folder at 'http://localhost:5000/uploads'
 app.use('/uploads', express.static('public/uploads'));
 
 app.use("/api/auth", authRouter);

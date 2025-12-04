@@ -69,9 +69,9 @@ const AttendanceReport = () => {
       ) : (
         Object.keys(report).length > 0 ? (
           
-          // 👇 FIX: தேதியை வரிசைப்படுத்துகிறோம் (Descending Order - Today First) 👇
+          //Descending Order for Date - Today First) 
           Object.entries(report)
-            .sort((a, b) => b[0].localeCompare(a[0])) // புதிய தேதி மேலே வரும்
+            .sort((a, b) => b[0].localeCompare(a[0])) // New date listout Top
             .map(([date, record]) => (
             
             <div className="mt-6 bg-white shadow-lg rounded-lg border border-gray-200 overflow-hidden" key={date}>

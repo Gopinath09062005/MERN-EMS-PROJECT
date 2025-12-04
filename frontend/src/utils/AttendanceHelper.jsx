@@ -6,35 +6,35 @@ export const columns = [
   {
     name: "S NO",
     selector: (row) => row.sno,
-    width: "70px", // S.No சிறியதாக இருந்தாலே போதும் (Fixed)
+    width: "70px", // S.No can be small (Fixed)
     center: true,
   },
   {
     name: "Name",
     selector: (row) => row.name,
     sortable: true,
-    // 👇 மாற்றம் இங்கே: width எடுத்துவிட்டு grow பயன்படுத்தவும் 👇
-    grow: 1, // பெயருக்கு அதிக இடம் (Double space)
+    // Use grow instead of width for more space for name
+    grow: 1, // More space for name (Double space)
     center: true,
   },
   {
     name: "Emp ID",
     selector: (row) => row.employeeId,
     sortable: true,
-    grow: 1, // மீதமுள்ள இடத்தைச் சமமாகப் பிரித்துக்கொள்ளும்
+    grow: 1, // Distribute remaining space equally
     center: true,
   },
   {
     name: "Department",
     selector: (row) => row.department,
-    grow: 0, // மீதமுள்ள இடத்தைச் சமமாகப் பிரித்துக்கொள்ளும்
+    grow: 0, // Distribute remaining space equally
     center: true,
   },
   {
     name: "Action / Status",
     selector: (row) => row.action,
     center: true,
-    grow: 1, // மீதமுள்ள இடத்தைச் சமமாகப் பிரித்துக்கொள்ளும்
+    grow: 1, // Distribute remaining space equally
   },
 ];
 

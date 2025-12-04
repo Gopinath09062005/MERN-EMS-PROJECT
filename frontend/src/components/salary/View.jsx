@@ -41,11 +41,9 @@ useEffect(() => {
           <h2 className='text-2xl font-bold mb-5'>Salary History</h2>
         </div>
 
-        {/* Scrollable Container added here */}
         <div className="overflow-x-auto shadow-md sm:rounded-lg">
             {filteredSalaries.length > 0 ? (
               <table className='w-full text-sm text-left text-gray-500 min-w-[800px]'> 
-                {/* min-w-[800px] ensures table doesn't squash */}
                 <thead className='text-xs text-gray-700 uppercase bg-gray-50 border border-gray-200'>
                   <tr>
                     <th className='px-6 py-3'>SNO</th>

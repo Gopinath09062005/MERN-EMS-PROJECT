@@ -1,6 +1,5 @@
 import express from 'express'
 import authMiddleware from '../middleware/authMiddleware.js'
-// 👇 deleteEmployee -ஐ import செய்யவும் 👇
 import { addEmployee, upload, getEmployees, getEmployee, updateEmployee, fetchEmployeesByDepId, deleteEmployee } from '../controllers/employeeController.js'
 
 const router = express.Router()
@@ -11,7 +10,6 @@ router.get('/:id', authMiddleware, getEmployee)
 router.put('/:id', authMiddleware, upload.single('image'), updateEmployee)
 router.get('/department/:id', authMiddleware, fetchEmployeesByDepId)
 
-// 👇 புதிய DELETE Route 👇
 router.delete('/:id', authMiddleware, deleteEmployee)
 
 export default router

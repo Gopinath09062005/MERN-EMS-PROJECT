@@ -11,7 +11,7 @@ import {
   FaTimes 
 } from "react-icons/fa";
 import { AiOutlineFileText } from "react-icons/ai";
-import logoImg from "../../assets/original logo.jpg"; // லோகோ இம்போர்ட்
+import logoImg from "../../assets/original logo.jpg"; // Logo import
 
 const AdminSidebar = ({ isOpen, closeSidebar }) => {
   return (
@@ -20,7 +20,7 @@ const AdminSidebar = ({ isOpen, closeSidebar }) => {
       ${isOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}
     >
       
-      {/* 👇 மாற்றம் இங்கே: பழைய Teal கலர் திரும்ப வந்துவிட்டது 👇 */}
+      {/* Sidebar Header with Logo and Close Button */}
       <div className="bg-teal-600 h-20 flex items-center justify-between px-4 shadow-md">
         
         {/* Logo & Text */}
@@ -41,7 +41,7 @@ const AdminSidebar = ({ isOpen, closeSidebar }) => {
             <FaTimes />
         </button>
       </div>
-      {/* 👆 மாற்றம் முடிந்தது 👆 */}
+      {/* End Sidebar Header */}
 
       <div className="px-3 space-y-2 mt-4">
         <NavLink to="/admin-dashboard" className={({ isActive }) => `${isActive ? "bg-teal-500" : ""} flex items-center space-x-4 py-2.5 px-4 rounded transition-colors hover:bg-teal-600`} end onClick={closeSidebar}>

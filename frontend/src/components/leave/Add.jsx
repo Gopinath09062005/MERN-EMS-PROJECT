@@ -19,7 +19,6 @@ const Add = () => {
 const handleSubmit = async (e) => {
   e.preventDefault()
   try {
-        // Change: API_URL
         const response = await axios.post(
           `${API_URL}/leave/add`, leave,
           {

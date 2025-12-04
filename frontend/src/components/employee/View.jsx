@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { API_URL } from "../../utils/config"; // SERVER_URL தேவையில்லை
+import { API_URL } from "../../utils/config";
 import { FaUser, FaIdBadge, FaCalendarAlt, FaVenusMars, FaBuilding, FaRing, FaMoneyBillWave } from "react-icons/fa";
 
 const View = () => {
@@ -42,14 +42,12 @@ const View = () => {
             <div className="h-40 bg-gradient-to-r from-teal-500 to-emerald-600"></div>
 
             <div className="px-6 pb-8">
-                {/* Profile Image (FIXED) */}
+                {/* Profile Image */}
                 <div className="relative flex justify-center -mt-20 mb-6">
                     <img
-                        // 👇 மாற்றம் இங்கே: SERVER_URL-ஐ நீக்கியுள்ளேன் 👇
                         src={employee.userId.profileImage}
                         alt={employee.userId.name}
                         className="w-40 h-40 rounded-full border-4 border-white object-cover shadow-lg"
-                        // படம் இல்லையென்றால் Placeholder காட்டும்
                         onError={(e) => {e.target.src = "https://via.placeholder.com/150"}}
                     />
                 </div>

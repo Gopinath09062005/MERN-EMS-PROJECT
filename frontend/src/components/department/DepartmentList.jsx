@@ -4,7 +4,7 @@ import DataTable from "react-data-table-component";
 import { columns, DepartmentButtons } from "../../utils/DepartmentHelper";
 import axios from "axios";
 import { API_URL } from "../../utils/config";
-import { FaPlus } from "react-icons/fa"; // Icon சேர்த்துள்ளேன்
+import { FaPlus } from "react-icons/fa"; // Icon
 
 const DepartmentList = () => {
   const [departments, setDepartments] = useState([]);
@@ -57,7 +57,7 @@ const DepartmentList = () => {
       {depLoading ? 
         <div className="flex justify-center items-center h-screen">Loading...</div>
        : 
-        <div className="p-2 md:p-6"> {/* Mobile padding reduced */}
+        <div className="p-2 md:p-6"> 
           
           {/* Title */}
           <div className="text-center mb-6">
@@ -80,13 +80,10 @@ const DepartmentList = () => {
             </Link>
           </div>
 
-          {/* 👇 SCROLL FIX 👇 */}
           <div className="bg-white shadow-lg rounded-lg border border-gray-200">
             
-            {/* overflow-x-auto enables scroll */}
             <div style={{ overflowX: "auto" }}>
                 
-                {/* minWidth: 500px enough for Dept table (fewer columns) */}
                 <div style={{ minWidth: "500px" }}> 
                     <DataTable 
                         columns={columns} 
@@ -120,7 +117,6 @@ const DepartmentList = () => {
                 </div>
             </div>
           </div>
-          {/* 👆 FIX END 👆 */}
 
         </div>
       }

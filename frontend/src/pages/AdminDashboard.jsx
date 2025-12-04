@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useAuth } from '../context/authContext'
+import { useAuth } from '../context/authContext';
 import AdminSidebar from "../components/dashboard/AdminSidebar";
 import Navbar from "../components/dashboard/Navbar";
 import { Outlet } from "react-router-dom";
@@ -21,7 +21,7 @@ const AdminDashboard = () => {
             {/* Main Layout */}
             <div className={`flex-1 flex flex-col h-screen transition-all duration-300 ${isSidebarOpen ? '' : ''} md:ml-64`}>
                 
-                {/* 👇 NAVBAR FIX: z-30 (Sidebar-க்கு கீழே இருக்க வேண்டும்) 👇 */}
+                {/* NAVBAR: z-30 (Should be below Sidebar) */}
                 <div className="sticky top-0 z-30 bg-teal-600 shadow-md">
                     <Navbar toggleSidebar={toggleSidebar} />
                 </div>
@@ -32,7 +32,7 @@ const AdminDashboard = () => {
                 </div>
             </div>
             
-            {/* 👇 OVERLAY FIX: z-40 (Sidebar-க்கு பின்னால், Navbar-க்கு முன்னால்) 👇 */}
+            {/* OVERLAY: z-40 (Behind Sidebar, in front of Navbar) */}
             {isSidebarOpen && (
                 <div 
                     className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"

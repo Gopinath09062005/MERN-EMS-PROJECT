@@ -5,15 +5,14 @@ const defaultAttendance = async (req, res, next) => {
   try {
     const date = new Date().toISOString().split("T")[0];
 
-    // 1. தற்போது உள்ள உண்மையான Employees-ஐ எடு
+    // 1. Get all current employees
     const employees = await Employee.find({});
     const employeeIds = employees.map(e => e._id.toString());
 
-    // 2. இன்றைய தேதிக்கு ஏற்கனவே உள்ள அட்டெண்டன்ஸ் பதிவுகளை எடு
+    // 2. Get existing attendance records for today
     const existingAttendance = await Attendance.find({ date });
 
-    // 3. CLEANUP: இல்லாத Employee-களின் அட்டெண்டன்ஸ் பதிவுகளை நீக்கு
-    // (இதுதான் உங்கள் பிரச்சனையை சரிசெய்யும் மேஜிக்)
+    // 3. CLEANUP: Remove attendance records for non-existent employees
     const invalidAttendance = existingAttendance.filter(att => 
         !employeeIds.includes(att.employeeId.toString())
     );
@@ -21,11 +20,10 @@ const defaultAttendance = async (req, res, next) => {
     if (invalidAttendance.length > 0) {
         const invalidIds = invalidAttendance.map(att => att._id);
         await Attendance.deleteMany({ _id: { $in: invalidIds } });
-        console.log(`🧹 Cleaned up ${invalidAttendance.length} invalid attendance records.`);
+        console.log(`Cleaned up ${invalidAttendance.length} invalid attendance records.`);
     }
 
-    // 4. இப்போது, விடுபட்டவர்களுக்கு மட்டும் புதிதாக உருவாக்கு
-    // (Cleanup செய்த பிறகு மீண்டும் செக் செய்கிறோம்)
+    // 4. Create new attendance records for missing employees
     const updatedAttendance = await Attendance.find({ date });
     const attendedEmployeeIds = updatedAttendance.map((att) => 
         att.employeeId.toString()
@@ -43,7 +41,7 @@ const defaultAttendance = async (req, res, next) => {
       }));
 
       await Attendance.insertMany(newRecords);
-      console.log(`✅ Created ${newRecords.length} new attendance records.`);
+      console.log(`Created ${newRecords.length} new attendance records.`);
     }
 
     next(); 

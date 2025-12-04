@@ -5,7 +5,7 @@ import defaultAttendance from '../middleware/defaultAttendance.js' // 1. Import 
 
 const router = express.Router()
 
-// 2. Add 'defaultAttendance' here 👇 (வரிசை முக்கியம்)
+// 2. Add 'defaultAttendance' here 
 router.get('/', authMiddleware, defaultAttendance, getAttendance) 
 
 router.put('/update/:employeeId', authMiddleware, updateAttendance)

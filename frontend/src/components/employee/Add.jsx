@@ -27,10 +27,10 @@ const Add = () => {
   };
 
   // 👇 DATE VALIDATION LOGIC 👇
-  // இன்றைய தேதியில் இருந்து 18 வருடங்களை கழிக்கிறோம்
+  // Subtract 18 years from today's date for max date
   const getMaxDate = () => {
     const today = new Date();
-    const year = today.getFullYear() - 18; // 18 வருடங்களுக்கு முன்பு
+    const year = today.getFullYear() - 18; // 18 years ago
     const month = String(today.getMonth() + 1).padStart(2, "0");
     const day = String(today.getDate()).padStart(2, "0");
     return `${year}-${month}-${day}`; // Format: YYYY-MM-DD
@@ -95,7 +95,7 @@ const Add = () => {
             <input
               type="date"
               name="dob"
-              // இந்த max அட்ரிபியூட் தான் முக்கியம்
+              // The max attribute restricts date selection to 18 years ago or older
               max={getMaxDate()} 
               onChange={handleChange}
               className="mt-1 p-2 block w-full border border-gray-300 rounded-md"

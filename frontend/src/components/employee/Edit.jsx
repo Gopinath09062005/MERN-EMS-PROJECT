@@ -61,7 +61,7 @@ const Edit = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // 👇 FormData பயன்படுத்துகிறோம் (Image Upload-க்காக)
+    // Using FormData for image upload
     const formDataObj = new FormData();
     Object.keys(employee).forEach((key) => {
       formDataObj.append(key, employee[key]);
@@ -70,7 +70,7 @@ const Edit = () => {
     try {
       const response = await axios.put(
         `${API_URL}/employee/${id}`,
-        formDataObj, // JSON-க்கு பதில் FormData அனுப்புகிறோம்
+        formDataObj, // Send FormData instead of JSON
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -128,7 +128,6 @@ const Edit = () => {
                 </select>
               </div>
 
-              {/* 👇 புதிய Image Input Field 👇 */}
               <div className="col-span-2">
                 <label className="block text-sm font-medium text-gray-700">Update Image (Optional)</label>
                 <input type="file" name="image" onChange={handleChange} accept="image/*" className="mt-1 p-2 block w-full border border-gray-300 rounded-md" />

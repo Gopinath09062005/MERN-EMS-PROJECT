@@ -9,13 +9,13 @@ const getDepartments = async (req, res) => {
   }
 };
 
-// 👇👇👇 UPDATED addDepartment FUNCTION 👇👇👇
+// UPDATED addDepartment FUNCTION
 const addDepartment = async (req, res) => {
   try {
     const { dep_name, description } = req.body;
 
     // 1. Check if department already exists (Case Insensitive)
-    // collation({ locale: 'en', strength: 2 }) என்பது எழுத்து வடிவத்தை (Capital/Small) புறக்கணிக்கும்.
+    // collation({ locale: 'en', strength: 2 }) ignores case sensitivity (uppercase/lowercase).
     const existingDep = await Department.findOne({ 
         dep_name: { $regex: new RegExp(`^${dep_name}$`, "i") } 
     });
@@ -35,7 +35,7 @@ const addDepartment = async (req, res) => {
     return res.status(500).json({ success: false, error: "add department server error" });
   }
 };
-// 👆👆👆 UPDATED FUNCTION END 👆👆👆
+// UPDATED FUNCTION END
 
 const getDepartment = async (req, res) => {
   try {
