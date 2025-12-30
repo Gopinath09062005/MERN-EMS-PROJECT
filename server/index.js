@@ -15,7 +15,7 @@ connectToDatabase();
 const app = express();
 
 app.use(cors({
-  origin: ["http://localhost:5173", "https://mern-ems-project-frontend.vercel.app"],
+  origin: ["http://localhost:5173", "https://mernstack-ems-project.vercel.app"],
   credentials: true
 }));
 
