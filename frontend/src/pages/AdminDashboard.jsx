@@ -15,13 +15,11 @@ const AdminDashboard = () => {
     return (
         <div className="flex h-screen bg-gray-100 overflow-hidden">
             
-            {/* Sidebar (z-50) */}
             <AdminSidebar isOpen={isSidebarOpen} closeSidebar={() => setIsSidebarOpen(false)} />
             
             {/* Main Layout */}
             <div className={`flex-1 flex flex-col h-screen transition-all duration-300 ${isSidebarOpen ? '' : ''} md:ml-64`}>
                 
-                {/* NAVBAR: z-30 (Should be below Sidebar) */}
                 <div className="sticky top-0 z-30 bg-teal-600 shadow-md">
                     <Navbar toggleSidebar={toggleSidebar} />
                 </div>
@@ -32,7 +30,6 @@ const AdminDashboard = () => {
                 </div>
             </div>
             
-            {/* OVERLAY: z-40 (Behind Sidebar, in front of Navbar) */}
             {isSidebarOpen && (
                 <div 
                     className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"

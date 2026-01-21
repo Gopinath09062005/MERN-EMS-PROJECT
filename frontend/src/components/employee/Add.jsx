@@ -26,16 +26,15 @@ const Add = () => {
     }
   };
 
-  // 👇 DATE VALIDATION LOGIC 👇
+  // DATE VALIDATION LOGIC 
   // Subtract 18 years from today's date for max date
   const getMaxDate = () => {
     const today = new Date();
-    const year = today.getFullYear() - 18; // 18 years ago
+    const year = today.getFullYear() - 18; 
     const month = String(today.getMonth() + 1).padStart(2, "0");
     const day = String(today.getDate()).padStart(2, "0");
     return `${year}-${month}-${day}`; // Format: YYYY-MM-DD
   };
-  // 👆 --------------------- 👆
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -89,20 +88,18 @@ const Add = () => {
             <input type="text" name="employeeId" onChange={handleChange} placeholder="Employee ID" className="mt-1 p-2 block w-full border border-gray-300 rounded-md" required />
           </div>
 
-          {/* 👇 DOB Input with Max Date 👇 */}
+          {/*  DOB Input with Max Date  */}
           <div>
             <label className="block text-sm font-medium text-gray-700">Date of Birth</label>
             <input
               type="date"
               name="dob"
-              // The max attribute restricts date selection to 18 years ago or older
               max={getMaxDate()} 
               onChange={handleChange}
               className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
               required
             />
           </div>
-          {/* 👆 ---------------------- 👆 */}
 
           {/* Gender */}
           <div>

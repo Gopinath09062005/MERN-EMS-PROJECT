@@ -4,7 +4,6 @@ import authMiddleware from '../middleware/authMiddleware.js'
 
 const router = express.Router()
 
-// fixed route path
 router.post('/login', login)        //
 router.get('/verify', authMiddleware, verify)        //
 

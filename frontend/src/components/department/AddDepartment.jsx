@@ -18,7 +18,6 @@ const AddDepartment = () => {
     const handleSubmit = async (e) =>{
         e.preventDefault()
         try{
-            // Change: API_URL
             const response = await axios.post(`${API_URL}/department/add`, department, {
                 headers: {
                     "Authorization" : `Bearer ${localStorage.getItem('token')}`

@@ -26,9 +26,7 @@ const Home = () => {
         </button>
       </nav>
 
-      {/* 2. HERO SECTION - The "Wow" Factor */}
       <div className="relative pt-32 pb-20 px-6 bg-gradient-to-r from-teal-600 to-emerald-800 text-white overflow-hidden">
-        {/* Decorative Circles */}
         <div className="absolute top-0 left-0 w-64 h-64 bg-white opacity-10 rounded-full mix-blend-overlay blur-3xl -translate-x-10 -translate-y-10"></div>
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-yellow-400 opacity-10 rounded-full mix-blend-overlay blur-3xl translate-x-20 translate-y-20"></div>
 
@@ -49,7 +47,6 @@ const Home = () => {
             </button>
           </div>
           
-          {/* Hero Image / Illustration */}
           <div className="md:w-1/2 mt-10 md:mt-0 flex justify-center">
              <img 
                src="https://img.freepik.com/free-vector/business-team-discussing-ideas-startup_74855-4380.jpg" 
@@ -60,7 +57,6 @@ const Home = () => {
         </div>
       </div>
 
-      {/* 3. FEATURES SECTION - Interactive Cards */}
       <div className="py-20 px-6 max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-3xl font-bold text-gray-800">Why Choose EMS?</h2>

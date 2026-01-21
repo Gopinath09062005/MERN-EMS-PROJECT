@@ -6,15 +6,14 @@ export const columns = [
   {
     name: "S NO",
     selector: (row) => row.sno,
-    width: "70px", // S.No can be small (Fixed)
+    width: "70px", 
     center: true,
   },
   {
     name: "Name",
     selector: (row) => row.name,
     sortable: true,
-    // Use grow instead of width for more space for name
-    grow: 1, // More space for name (Double space)
+    grow: 1,
     center: true,
   },
   {

@@ -87,21 +87,6 @@ try {
     }
 }
 
-// const updateLeave = async (req, res) => {
-//     try {
-// const {id} = req.params
-// console.log(req.body.status);
-
-// const leave = await Leave.findByIdAndUpdate({_id: id}, {status: req.body.status})
-//     if(!leave) {
-//         return res.status(404).json({success: false, error: "leave not found"})
-//     }
-//     return res.status(200).json({success: true})
-//     } catch(error) {
-//         console.log(error.message);
-//         return res.status(500).json({success:  false, error: "leave update server error"})
-//     }
-// }
 
 const updateLeave = async (req, res) => {
   try {

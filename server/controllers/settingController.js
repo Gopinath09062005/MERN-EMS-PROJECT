@@ -5,7 +5,7 @@ const changePassword = async (req, res) => {
     try {
         const { userId, oldPassword, newPassword } = req.body
 
-        // 1. Check if old and new passwords are the same (NEW FIX)
+        // 1. Check if old and new passwords are the same
         if (oldPassword === newPassword) {
             return res.status(400).json({ success: false, error: "New password cannot be same as old password" });
         }

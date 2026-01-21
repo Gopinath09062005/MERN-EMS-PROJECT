@@ -31,10 +31,9 @@ export const columns = [
     width: "130px" 
   },
   { 
-    // Action Header Center Fix
+
     name: <div style={{ width: "100%", textAlign: "center" }}>ACTION</div>, 
     selector: (row) => row.action, 
-    // Action Buttons Center Fix
     style: {
         justifyContent: 'center', 
         display: 'flex',

@@ -12,7 +12,6 @@ const defaultAttendance = async (req, res, next) => {
     // 2. Get existing attendance records for today
     const existingAttendance = await Attendance.find({ date });
 
-    // 3. CLEANUP: Remove attendance records for non-existent employees
     const invalidAttendance = existingAttendance.filter(att => 
         !employeeIds.includes(att.employeeId.toString())
     );

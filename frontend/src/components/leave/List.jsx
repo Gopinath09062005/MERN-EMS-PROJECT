@@ -50,7 +50,7 @@ const List = () => {
       {/* Responsive Wrapper */}
       <div className="overflow-x-auto shadow-md sm:rounded-lg">
         <table className="w-full text-sm text-left text-gray-500 min-w-[800px]">
-           {/* min-w added */}
+
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 border border-gray-200">
             <tr>
               <th className="px-6 py-3">SNO</th>

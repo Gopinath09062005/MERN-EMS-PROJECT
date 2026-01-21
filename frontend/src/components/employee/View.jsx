@@ -38,7 +38,6 @@ const View = () => {
         <div className="min-h-screen flex justify-center items-center bg-gray-100 p-4">
           <div className="max-w-3xl w-full bg-white rounded-2xl shadow-2xl overflow-hidden">
             
-            {/* Top Banner */}
             <div className="h-40 bg-gradient-to-r from-teal-500 to-emerald-600"></div>
 
             <div className="px-6 pb-8">

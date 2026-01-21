@@ -27,7 +27,7 @@ const Setting = () => {
         if (setting.newPassword !== setting.confirmPassword) {
             setError("New password and confirm password do not match")
         } 
-        // 2. Check if Old and New passwords are the same (NEW FIX)
+        // 2. Check if Old and New passwords are the same
         else if (setting.oldPassword === setting.newPassword) {
             setError("New password cannot be the same as old password")
         } 
@@ -64,7 +64,6 @@ const Setting = () => {
     <div className='max-w-3xl mx-auto mt-10 bg-white p-8 rounded-md shadow-md w-96'>
         <h2 className='text-2xl font-bold mb-6'>Change Password</h2>
         
-        {/* Error Message Display */}
         {error && <p className='text-red-500 mb-4 bg-red-50 p-2 rounded border border-red-200 text-sm'>{error}</p>}
         
         <form onSubmit={handleSubmit}>

@@ -22,7 +22,6 @@ departmentSchema.pre("deleteOne", {document: true, query: false}, async function
         await Leave.deleteMany({employeeId: {$in : empIds}})
         // Delete related Salaries
         await Salary.deleteMany({employeeId: {$in : empIds}})
-        // Delete Users associated with employees (Optional but good for cleanup)
         // const userIds = employees.map(emp => emp.userId)
         // await User.deleteMany({_id: {$in: userIds}})
 

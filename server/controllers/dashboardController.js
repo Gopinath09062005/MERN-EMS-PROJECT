@@ -31,7 +31,6 @@ const getSummary = async (req, res) => {
             success: true,
             totalEmployees,
             totalDepartments,
-            // Safety check added here using ?. and || 0
             totalSalary: totalSalaries.length > 0 ? totalSalaries[0].totalSalary : 0, 
             leaveSummary,
         })

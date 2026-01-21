@@ -1,7 +1,6 @@
 import Attendance from "../models/Attendance.js";
 import Employee from "../models/Employee.js";
 
-// getAttendance and updateAttendance remain unchanged...
 const getAttendance = async (req, res) => {
     try {
         const date = new Date().toISOString().split('T')[0];
@@ -29,7 +28,6 @@ const updateAttendance = async (req, res) => {
     }
 };
 
-// Attendance Report Logic (English comments)
 const attendanceReport = async (req, res) => {
     try {
         const { date, limit = 5, skip = 0 } = req.query;
@@ -41,7 +39,7 @@ const attendanceReport = async (req, res) => {
         // 1. Get unique dates from attendance records
         const distinctDates = await Attendance.find(query).distinct("date");
         
-        // 2. Sort dates in descending order and apply pagination
+        // 2. Sort dates in descending order
         const sortedDates = distinctDates.sort((a, b) => b.localeCompare(a));
         const targetDates = sortedDates.slice(parseInt(skip), parseInt(skip) + parseInt(limit));
 

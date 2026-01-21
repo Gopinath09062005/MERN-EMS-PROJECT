@@ -6,7 +6,7 @@ export const columns = [
   { 
     name: "S NO", 
     selector: (row) => row.sno,
-    width: "100px" // Fixed width for better look
+    width: "100px" 
   },
   { 
     name: "Department Name", 
@@ -16,7 +16,7 @@ export const columns = [
   { 
     name: "Action", 
     selector: (row) => row.action,
-    center: true // Center align buttons
+    center: true 
   },
 ];
 

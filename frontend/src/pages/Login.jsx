@@ -19,7 +19,7 @@ const Login = () => {
             if (response.data.success) {
                 login(response.data.user)
                 
-                // Direct Storage (No Remember Me logic)
+                // Direct Storage 
                 localStorage.setItem("token", response.data.token) 
 
                 if (response.data.user.role === "admin") {
@@ -61,7 +61,6 @@ const Login = () => {
                             value={password} onChange={(e) => setPassword(e.target.value)} required />
                     </div>
 
-                    {/* Remember Me & Forgot Password REMOVED */}
                     
                     <div className="mb-2">
                         <button type="submit" className="w-full bg-teal-600 hover:bg-teal-700 text-white font-bold py-2 rounded-lg shadow-md transition-transform transform active:scale-95 duration-200">

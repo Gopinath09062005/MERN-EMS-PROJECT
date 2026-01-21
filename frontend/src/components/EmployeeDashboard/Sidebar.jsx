@@ -16,9 +16,7 @@ const Sidebar = ({ isOpen, closeSidebar }) => {
     {/* Sidebar Header: Logo and Close Button */}
     <div className="bg-teal-600 h-20 flex items-center justify-between px-4 shadow-md">
     
-    {/* Logo & Text */}
     <div className="flex items-center gap-3">
-      {/* Round Logo */}
       <img 
         src={logoImg} 
         alt="EMS Logo" 

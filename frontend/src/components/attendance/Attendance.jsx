@@ -82,7 +82,6 @@ const Attendance = () => {
         </Link>
       </div>
 
-      {/*  LOADING & SPACING FIX  */}
       <div className='mt-6 bg-white shadow-lg rounded-lg border border-gray-200 overflow-hidden'>
         
         {/* Show spinner only if loading, else show table */}
@@ -97,7 +96,6 @@ const Attendance = () => {
                         columns={columns} 
                         data={filteredAttendance} 
                         pagination 
-                        // Spacing Fix: dense mode or reduced padding
                         dense 
                         customStyles={{
                             headRow: { style: { backgroundColor: '#f9fafb', borderBottom: '1px solid #e5e7eb', minHeight: '50px' } },
