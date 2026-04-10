@@ -4,7 +4,10 @@ import Leave from "../models/Leave.js";
 
 const getSummary = async (req, res) => {
     try {
-        const totalEmployees = await Employee.countDocuments();
+        // const totalEmployees = await Employee.countDocuments();
+        
+const employees = await Employee.find().populate("userId");
+const totalEmployees = employees.filter(emp => emp.userId && emp.userId.role !== "admin").length;
         const totalDepartments = await Department.countDocuments();
 
         const totalSalaries = await Employee.aggregate([

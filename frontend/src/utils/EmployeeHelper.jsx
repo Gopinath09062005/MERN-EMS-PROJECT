@@ -116,8 +116,8 @@ export const EmployeeButtons = ({ Id, onEmployeeDelete }) => {
         Leave
       </button>
       <button
-        className="px-3 py-1 bg-red-700 text-white rounded hover:bg-red-800 transition"
-        onClick={() => onEmployeeDelete(Id)}
+        className="px-3 py-1 bg-red-600 text-white text-sm font-medium rounded-md hover:bg-red-800"
+        onClick={() => onEmployeeDelete(Id)} 
       >
         Delete
       </button>
