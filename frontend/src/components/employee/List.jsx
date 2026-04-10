@@ -6,6 +6,7 @@ import axios from 'axios';
 import { API_URL } from '../../utils/config';
 import { FaPlus } from 'react-icons/fa';
 
+
 const List = () => {
   const [employees, setEmployees] = useState([])
   const [empLoading, setEmpLoading] = useState(false);
